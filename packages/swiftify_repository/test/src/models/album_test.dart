@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 void main() {
   group('Album', () {
     const album = Album(
-      title: AlbumTitleEnum.taylorSwift,
+      title: AlbumTitleEnum.reputation,
       albumCover: 'albumCover',
       artist: 'artist',
       releaseDate: [
