@@ -25,6 +25,13 @@ void main() {
       );
     });
 
+    test('can be instantiated without dio', () {
+      expect(
+        ApiClient(),
+        isNotNull,
+      );
+    });
+
     test('can be instantiated', () {
       when(() => httpClient.interceptors).thenReturn(
         Interceptors(),

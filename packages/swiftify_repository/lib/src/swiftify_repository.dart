@@ -9,5 +9,6 @@ class SwiftifyRepository {
     ApiClient? apiClient,
   }) : apiClient = apiClient ?? ApiClient();
 
+  /// The [ApiClient] used to communicate with the API.
   final ApiClient apiClient;
 }
