@@ -8,18 +8,18 @@ import 'package:dio/dio.dart';
 class ApiClient {
   /// {@macro api_client}
   ApiClient({
-    required this.dio,
+    Dio? dio,
     List<Interceptor>? interceptors,
-  }) {
+  }) : _dio = dio ?? Dio() {
     interceptors?.forEach((element) {
-      dio.interceptors.add(element);
+      dio?.interceptors.add(element);
     });
   }
 
   /// [Dio] used to communicate with the API
-  final Dio dio;
+  final Dio _dio;
 
-  String get _baseUrl => dio.options.baseUrl;
+  String get _baseUrl => _dio.options.baseUrl;
 
   /// GET request to [path] with [queryParameters]
   Future<T?> get<T>(
@@ -30,7 +30,7 @@ class ApiClient {
   }) async {
     late final Response<T> response;
     try {
-      response = await dio.get(
+      response = await _dio.get(
         '$_baseUrl/$path',
         data: body,
         queryParameters: queryParameters,
