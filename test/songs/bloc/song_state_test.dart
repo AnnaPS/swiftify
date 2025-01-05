@@ -9,10 +9,14 @@ void main() {
     test('supports value comparisons', () {
       expect(
         SongState(
-            songs: const [Song(name: 'name')], status: SongStatus.loading),
+          songs: const [Song(name: 'name')],
+          status: SongStatus.loading,
+        ),
         equals(
           SongState(
-              songs: const [Song(name: 'name')], status: SongStatus.loading),
+            songs: const [Song(name: 'name')],
+            status: SongStatus.loading,
+          ),
         ),
       );
 
