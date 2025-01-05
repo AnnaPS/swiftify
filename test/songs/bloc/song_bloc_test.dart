@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors
 
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -46,7 +46,7 @@ void main() {
         expect: () => [
           const SongState(status: SongStatus.loading),
           SongState(
-            songs: [Song(name: 'willow')],
+            songs: const [Song(name: 'willow')],
             status: SongStatus.success,
           ),
         ],

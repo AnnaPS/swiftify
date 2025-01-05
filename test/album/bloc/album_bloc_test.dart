@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors
 
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -40,7 +40,7 @@ void main() {
         expect: () => [
           const AlbumState(status: AlbumStatus.loading),
           AlbumState(
-            albums: [Album(title: AlbumTitleEnum.evermore)],
+            albums: const [Album(title: AlbumTitleEnum.evermore)],
             status: AlbumStatus.success,
           ),
         ],
