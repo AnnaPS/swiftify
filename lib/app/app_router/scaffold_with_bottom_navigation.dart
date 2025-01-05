@@ -26,14 +26,14 @@ class ScaffoldWithBottomNavigation extends StatelessWidget {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: navigationShell.currentIndex,
         onTap: _goBranch,
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.album_outlined),
-            label: 'Albums',
+            icon: const Icon(Icons.album_outlined),
+            label: l10n.albumsTitle,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite_outline_outlined),
-            label: 'Favorites',
+            icon: const Icon(Icons.favorite_outline_outlined),
+            label: l10n.favoritesTitle,
           ),
         ],
       ),

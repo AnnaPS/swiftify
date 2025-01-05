@@ -1,6 +1,3 @@
-// Copyright (c) 2024, Very Good Ventures
-// https://verygood.ventures
-
 import 'package:go_router/go_router.dart';
 
 class AppRoute extends GoRoute {
