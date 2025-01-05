@@ -13,6 +13,7 @@ class AlbumState extends Equatable {
 
   bool get isLoading => status == AlbumStatus.loading;
   bool get isSuccess => status == AlbumStatus.success;
+  bool get isFailure => status == AlbumStatus.failure;
 
   AlbumState copyWith({
     List<Album>? albums,
