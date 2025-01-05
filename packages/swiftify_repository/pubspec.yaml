@@ -9,7 +9,6 @@ environment:
 dependencies:
   api_client:
     path: ../api_client
-  collection: ^1.19.1
   equatable: ^2.0.7
   json_annotation: ^4.9.0
 
