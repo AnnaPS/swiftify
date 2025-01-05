@@ -7,10 +7,13 @@ part of 'album.dart';
 // **************************************************************************
 
 Album _$AlbumFromJson(Map<String, dynamic> json) => Album(
-      title: $enumDecode(_$AlbumTitleEnumEnumMap, json['title']),
-      albumCover: json['albumCover'] as String,
-      artist: json['artist'] as String,
-      releaseDate: _releaseDateFromJson(json['releaseDate']),
+      title: $enumDecodeNullable(_$AlbumTitleEnumEnumMap, json['title']) ??
+          AlbumTitleEnum.taylorSwift,
+      albumCover: json['albumCover'] as String? ?? '',
+      artist: json['artist'] as String? ?? '',
+      releaseDate: json['releaseDate'] == null
+          ? const []
+          : _releaseDateFromJson(json['releaseDate']),
     );
 
 const _$AlbumTitleEnumEnumMap = {
