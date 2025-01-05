@@ -7,11 +7,12 @@ part of 'song.dart';
 // **************************************************************************
 
 Song _$SongFromJson(Map<String, dynamic> json) => Song(
-      name: json['name'] as String,
-      artist: json['artist'] as String,
-      duration: json['duration'] as String,
-      lyrics: json['lyrics'] as String,
-      album: $enumDecode(_$AlbumTitleEnumEnumMap, json['album']),
+      name: json['name'] as String? ?? '',
+      artist: json['artist'] as String? ?? '',
+      duration: json['duration'] as String? ?? '',
+      lyrics: json['lyrics'] as String? ?? '',
+      album: $enumDecodeNullable(_$AlbumTitleEnumEnumMap, json['album']) ??
+          AlbumTitleEnum.taylorSwift,
     );
 
 const _$AlbumTitleEnumEnumMap = {

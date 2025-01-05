@@ -16,15 +16,6 @@ void main() {
       title: AlbumTitleEnum.red,
       albumCover: 'albumCover2',
       artist: 'artist2',
-      songs: [
-        Song(
-          name: 'name',
-          artist: 'artist',
-          duration: 'duration',
-          lyrics: 'lyrics',
-          album: AlbumTitleEnum.red,
-        ),
-      ],
       releaseDate: [
         ReleaseDate(month: 'month', day: 1, year: 1),
       ],

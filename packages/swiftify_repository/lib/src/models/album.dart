@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:swiftify_repository/swiftify_repository.dart';
 
 part 'album.g.dart';
 
@@ -9,45 +8,50 @@ part 'album.g.dart';
 enum AlbumTitleEnum {
   /// Taylor Swift album
   @JsonValue('Taylor Swift')
-  taylorSwift,
+  taylorSwift('Taylor Swift'),
 
   /// Lover album
   @JsonValue('Lover')
-  lover,
+  lover('Lover'),
 
   /// Red (Taylor's version) album
   @JsonValue('Red')
-  red,
+  red('Red'),
 
   /// Fearless (Taylor's version) album
   @JsonValue('Fearless')
-  fearless,
+  fearless('Fearless'),
 
   /// Speak Now (Taylor's version) album
   @JsonValue('Speak Now')
-  speakNow,
+  speakNow('Speak Now'),
 
   /// Fearless (Taylor's Version) album
   @JsonValue('1989')
-  nineteenEightyNine,
+  nineteenEightyNine('1989'),
 
   /// Reputation album
   @JsonValue('Reputation')
-  reputation,
+  reputation('Reputation'),
 
   /// Midnights album
   @JsonValue('Midnights')
-  midnights,
+  midnights('Midnights'),
 
   /// Evermore album
   @JsonValue('Evermore')
-  evermore,
+  evermore('Evermore'),
 
   /// Folklore album
   @JsonValue('Folklore')
-  folklore;
+  folklore('Folklore'),
+  ;
 
-  const AlbumTitleEnum();
+  const AlbumTitleEnum(
+    this.value,
+  );
+
+  final String value;
 }
 
 /// {@template album}
@@ -61,7 +65,6 @@ class Album extends Equatable {
     this.albumCover = '',
     this.artist = '',
     this.releaseDate = const [],
-    this.songs = const [],
   });
 
   /// Converts a [Map<String, dynamic>] to an [Album] object.
@@ -76,12 +79,6 @@ class Album extends Equatable {
   /// The artist of the album
   final String artist;
 
-  /// The songs in the album.
-  /// This field is excluded from JSON serialization/deserialization.
-  /// It will be populated by the repository when fetching the album.
-  @JsonKey(includeFromJson: false)
-  final List<Song> songs;
-
   /// The release dates of the album
   @JsonKey(fromJson: _releaseDateFromJson)
   final List<ReleaseDate> releaseDate;
@@ -92,24 +89,7 @@ class Album extends Equatable {
         albumCover,
         artist,
         releaseDate,
-        songs,
       ];
-
-  Album copyWith({
-    AlbumTitleEnum? title,
-    String? albumCover,
-    String? artist,
-    List<Song>? songs,
-    List<ReleaseDate>? releaseDate,
-  }) {
-    return Album(
-      title: title ?? this.title,
-      albumCover: albumCover ?? this.albumCover,
-      artist: artist ?? this.artist,
-      songs: songs ?? this.songs,
-      releaseDate: releaseDate ?? this.releaseDate,
-    );
-  }
 }
 
 /// Method to convert JSON to ReleaseDate object manually.
