@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:swiftify/album/album.dart';
 import 'package:swiftify/app/app_router/routes/dashboard_routes.dart';
+import 'package:swiftify/app/app_router/routes/theme_route.dart';
 
 export 'go_router_observer.dart';
 
@@ -51,6 +52,7 @@ class AppRouter {
       navigatorKey: rootNavigatorKey,
       routes: [
         dashBoardRoutes,
+        themeRoute,
       ],
     );
   }

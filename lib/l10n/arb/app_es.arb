@@ -11,5 +11,17 @@
     "favoritesTitle": "Favoritos",
     "@favoritesTitle": {
         "description": "Texto mostrado en el BottomNavigationBar de la página de Favoritos"
+    },
+    "light": "Claro",
+    "@light": {
+        "description": "Texto mostrado en el selector de temas"
+    },
+    "dark": "Oscuro",
+    "@dark": {
+        "description": "Texto mostrado en el selector de temas"
+    },
+    "system": "Sistema",
+    "@system": {
+        "description": "Texto mostrado en el selector de temas"
     }
 }

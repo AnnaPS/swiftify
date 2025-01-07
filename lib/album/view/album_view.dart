@@ -5,13 +5,8 @@ class AlbumView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Album Page'),
-      ),
-      body: const Center(
-        child: Text('Album Page'),
-      ),
+    return const Center(
+      child: Text('Album Page'),
     );
   }
 }
