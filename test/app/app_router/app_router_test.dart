@@ -5,6 +5,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:swiftify/album/album.dart';
 import 'package:swiftify/app/app_router/app_router.dart';
 import 'package:swiftify/favorites/favorites.dart';
+import 'package:swiftify/theme/theme.dart';
 
 import '../../helpers/helpers.dart';
 
@@ -28,6 +29,7 @@ void main() {
       appRouter = AppRouter();
 
       when(() => goRouter.go(any())).thenReturn(null);
+      when(() => goRouter.push(any())).thenAnswer((_) async => {});
       when(goRouter.pop).thenReturn(null);
       when(goRouter.canPop).thenReturn(true);
       when(() => goRouter.routeInformationProvider)
@@ -77,6 +79,22 @@ void main() {
 
         await tester.pumpAndSettle();
         expect(find.byType(FavoritesPage), findsOneWidget);
+      });
+
+      testWidgets('to ThemeBottomSheet', (tester) async {
+        await tester.pumpRoutes(
+          appRouter: appRouter,
+        );
+
+        final iconButton = tester.widget<IconButton>(
+          find.byType(IconButton),
+        );
+
+        iconButton.onPressed!();
+        appRouter.routes.go(ThemeBottomSheet.routeName);
+
+        await tester.pumpAndSettle();
+        expect(find.byType(ThemeBottomSheet), findsOneWidget);
       });
     });
   });

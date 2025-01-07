@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:bloc/bloc.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 
 class AppBlocObserver extends BlocObserver {
   const AppBlocObserver();
@@ -21,13 +23,31 @@ class AppBlocObserver extends BlocObserver {
 }
 
 Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
-  FlutterError.onError = (details) {
-    log(details.exceptionAsString(), stackTrace: details.stack);
-  };
+  await runZonedGuarded<Future<void>>(
+    () async {
+      WidgetsFlutterBinding.ensureInitialized();
 
-  Bloc.observer = const AppBlocObserver();
+      HydratedBloc.storage = await HydratedStorage.build(
+        storageDirectory: await getApplicationSupportDirectory(),
+      );
 
-  // Add cross-flavor configuration here
+      FlutterError.onError = (details) {
+        log(details.exceptionAsString(), stackTrace: details.stack);
+      };
 
-  runApp(await builder());
+      Bloc.observer = const AppBlocObserver();
+
+      await SystemChrome.setPreferredOrientations(
+        [
+          DeviceOrientation.portraitDown,
+          DeviceOrientation.portraitUp,
+        ],
+      );
+
+      runApp(await builder());
+    },
+    (error, stackTrace) {
+      log('runZonedGuarded($error, $stackTrace)');
+    },
+  );
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:swiftify/l10n/l10n.dart';
+import 'package:swiftify/theme/view/theme_bottom_sheet.dart';
 
 class ScaffoldWithBottomNavigation extends StatelessWidget {
   const ScaffoldWithBottomNavigation({
@@ -21,7 +22,20 @@ class ScaffoldWithBottomNavigation extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
 
+    final currentIndex = navigationShell.currentIndex;
+
     return Scaffold(
+      appBar: AppBar(
+        title: currentIndex == 0
+            ? Text(l10n.albumsTitle)
+            : Text(l10n.favoritesTitle),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.lightbulb_outline),
+            onPressed: () => context.push(ThemeBottomSheet.routeName),
+          ),
+        ],
+      ),
       body: navigationShell,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: navigationShell.currentIndex,
