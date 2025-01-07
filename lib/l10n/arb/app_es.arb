@@ -3,5 +3,13 @@
     "counterAppBarTitle": "Contador",
     "@counterAppBarTitle": {
         "description": "Texto mostrado en la AppBar de la página del contador"
+    },
+    "albumsTitle": "Álbumes",
+    "@albumsTitle": {
+        "description": "Texto mostrado en el BottomNavigationBar de la página de Álbumes"
+    },
+    "favoritesTitle": "Favoritos",
+    "@favoritesTitle": {
+        "description": "Texto mostrado en el BottomNavigationBar de la página de Favoritos"
     }
 }
