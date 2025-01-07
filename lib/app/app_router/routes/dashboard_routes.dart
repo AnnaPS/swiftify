@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:swiftify/app/app_router/routes/album_route.dart';
-import 'package:swiftify/app/app_router/routes/favorites_route.dart';
+import 'package:swiftify/album/album.dart';
+import 'package:swiftify/app/app_router/app_router.dart';
 import 'package:swiftify/app/app_router/scaffold_with_bottom_navigation.dart';
+import 'package:swiftify/favorites/favorites.dart';
 
 final albumNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'albums');
 final favoritesNavigatorKey =
@@ -15,11 +16,23 @@ final dashBoardRoutes = StatefulShellRoute.indexedStack(
   branches: [
     StatefulShellBranch(
       navigatorKey: albumNavigatorKey,
-      routes: [albumRoutes],
+      routes: [
+        AppRoute(
+          name: AlbumPage.routeName,
+          path: AlbumPage.routeName,
+          builder: (context, state) => const AlbumPage(),
+        ),
+      ],
     ),
     StatefulShellBranch(
       navigatorKey: favoritesNavigatorKey,
-      routes: [favoriteRoutes],
+      routes: [
+        AppRoute(
+          name: FavoritesPage.routeName,
+          path: FavoritesPage.routeName,
+          builder: (context, state) => const FavoritesPage(),
+        ),
+      ],
     ),
   ],
 );
