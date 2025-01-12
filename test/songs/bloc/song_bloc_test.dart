@@ -31,7 +31,7 @@ void main() {
         setUp: () {
           when(
             () => swiftifyRepository.getSongsByAlbum(
-              albumTitle: AlbumTitleEnum.evermore,
+              albumTitle: AlbumIdEnum.evermore,
             ),
           ).thenAnswer((_) async => [Song(name: 'willow')]);
         },
@@ -39,8 +39,8 @@ void main() {
           swiftifyRepository: swiftifyRepository,
         ),
         act: (bloc) => bloc.add(
-          SongsByAlbumRequested(
-            albumTitle: AlbumTitleEnum.evermore,
+          SongsRequested(
+            albumTitle: AlbumIdEnum.evermore,
           ),
         ),
         expect: () => [
@@ -57,7 +57,7 @@ void main() {
         setUp: () {
           when(
             () => swiftifyRepository.getSongsByAlbum(
-              albumTitle: AlbumTitleEnum.evermore,
+              albumTitle: AlbumIdEnum.evermore,
             ),
           ).thenThrow(Exception());
         },
@@ -65,8 +65,8 @@ void main() {
           swiftifyRepository: swiftifyRepository,
         ),
         act: (bloc) => bloc.add(
-          SongsByAlbumRequested(
-            albumTitle: AlbumTitleEnum.evermore,
+          SongsRequested(
+            albumTitle: AlbumIdEnum.evermore,
           ),
         ),
         expect: () => <SongState>[

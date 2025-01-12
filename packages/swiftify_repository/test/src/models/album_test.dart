@@ -4,21 +4,16 @@ import 'package:test/test.dart';
 void main() {
   group('Album', () {
     const album = Album(
-      title: AlbumTitleEnum.reputation,
+      title: 'title',
       albumCover: 'albumCover',
-      artist: 'artist',
-      releaseDate: [
-        ReleaseDate(month: 'month', day: 1, year: 1),
-      ],
+      releaseDate: 'releaseDate',
     );
 
     const album2 = Album(
-      title: AlbumTitleEnum.red,
+      title: 'title2',
       albumCover: 'albumCover2',
-      artist: 'artist2',
-      releaseDate: [
-        ReleaseDate(month: 'month', day: 1, year: 1),
-      ],
+      artistId: 2,
+      releaseDate: 'releaseDate2',
     );
 
     test('supports value comparisons', () {
@@ -37,20 +32,6 @@ void main() {
       final album = Album.fromJson(json);
 
       expect(album, equals(album));
-    });
-  });
-
-  group('ReleaseDate', () {
-    const releaseDate = ReleaseDate(month: 'month', day: 1, year: 1);
-    const releaseDate2 = ReleaseDate(month: 'month2', day: 2, year: 2);
-
-    test('supports value comparisons', () {
-      expect(releaseDate, equals(releaseDate));
-      expect(releaseDate, isNot(equals(releaseDate2)));
-    });
-
-    test('toString', () {
-      expect(releaseDate.toString(), equals('month 1, 1'));
     });
   });
 }

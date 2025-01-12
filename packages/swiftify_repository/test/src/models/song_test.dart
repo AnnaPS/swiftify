@@ -4,19 +4,15 @@ import 'package:test/test.dart';
 void main() {
   group('Song', () {
     const song = Song(
-      artist: 'artist',
-      album: AlbumTitleEnum.reputation,
-      duration: '1',
-      lyrics: 'lyrics',
-      name: 'name',
+      albumId: 1,
+      songId: 1,
+      title: 'title',
     );
 
     const song2 = Song(
-      artist: 'artist2',
-      album: AlbumTitleEnum.folklore,
-      duration: '2',
-      lyrics: 'lyrics2',
-      name: 'name2',
+      albumId: 2,
+      songId: 2,
+      title: 'title2',
     );
 
     test('supports value comparisons', () {
@@ -26,11 +22,9 @@ void main() {
 
     test('fromJson', () {
       final json = <String, dynamic>{
-        'name': 'name',
-        'artist': 'artist',
-        'duration': '1',
-        'lyrics': 'lyrics',
-        'album': 'Reputation',
+        'title': 'title',
+        'artist_id': 1,
+        'song_id': 1,
       };
 
       final song = Song.fromJson(json);

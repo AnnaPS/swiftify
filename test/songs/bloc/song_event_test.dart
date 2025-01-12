@@ -9,14 +9,14 @@ void main() {
     group('SongsByAlbumRequested', () {
       test('supports value comparisons', () {
         expect(
-          SongsByAlbumRequested(albumTitle: AlbumTitleEnum.taylorSwift),
-          equals(SongsByAlbumRequested(albumTitle: AlbumTitleEnum.taylorSwift)),
+          SongsRequested(albumTitle: AlbumIdEnum.taylorSwift),
+          equals(SongsRequested(albumTitle: AlbumIdEnum.taylorSwift)),
         );
 
         expect(
-          SongsByAlbumRequested(albumTitle: AlbumTitleEnum.taylorSwift),
+          SongsRequested(albumTitle: AlbumIdEnum.taylorSwift),
           isNot(
-            equals(SongsByAlbumRequested(albumTitle: AlbumTitleEnum.fearless)),
+            equals(SongsRequested(albumTitle: AlbumIdEnum.fearless)),
           ),
         );
       });

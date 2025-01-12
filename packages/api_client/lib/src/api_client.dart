@@ -19,7 +19,7 @@ class ApiClient {
   /// [Dio] used to communicate with the API
   final Dio _dio;
 
-  String get _baseUrl => 'https://taylor-swift-api.vercel.app/';
+  String get _baseUrl => 'https://taylor-swift-api.sarbo.workers.dev';
 
   /// GET request to [path] with [queryParameters]
   Future<T?> get<T>(

@@ -31,25 +31,24 @@ void main() {
     group('getAlbums', () {
       final albumJson = <String, dynamic>{
         'title': 'Reputation',
-        'albumCover': 'albumCover',
-        'artist': 'Taylor Swift',
-        'releaseDate': ['month', 1, 12],
+        'album_id': 1,
+        'release_date': '2017-11-10',
       };
 
       test('returns a list of albums', () async {
         when(
-          () => apiClient.get<List<Map<String, dynamic>>>('albums'),
+          () => apiClient.get<List<dynamic>>('albums'),
         ).thenAnswer((_) async => [albumJson]);
 
         final albums = await repository.getAlbums();
 
         expect(albums, isNotEmpty);
-        expect(albums.first.title, AlbumTitleEnum.reputation);
+        expect(albums.first.title, 'Reputation');
       });
 
       test('returns an empty list if the albums response is null', () async {
         when(
-          () => apiClient.get<List<Map<String, dynamic>>>('albums'),
+          () => apiClient.get<List<dynamic>>('albums'),
         ).thenAnswer((_) async => null);
 
         final albums = await repository.getAlbums();
@@ -61,9 +60,7 @@ void main() {
         final repository = SwiftifyRepository(apiClient: apiClient);
 
         when(
-          () => apiClient.get<List<Map<String, dynamic>>>(
-            'albums',
-          ),
+          () => apiClient.get<List<dynamic>>('albums'),
         ).thenThrow(Exception('error'));
 
         expect(
@@ -75,37 +72,35 @@ void main() {
 
     group('getSongsByAlbum', () {
       final songJson = <String, dynamic>{
-        'name': 'Are you ready for it?',
-        'artist': 'Taylor Swift',
-        'duration': '1',
-        'lyrics': 'lyrics',
-        'album': 'Reputation',
+        'title': 'Are you ready for it?',
+        'artist_id': 1,
+        'song_id': 1,
       };
 
       test('returns a list of songs by album', () async {
         when(
           () => apiClient.get<List<Map<String, dynamic>>>(
-            'songs/album/${AlbumTitleEnum.reputation}',
+            'albums/1',
           ),
         ).thenAnswer((_) async => [songJson]);
 
         final songs = await repository.getSongsByAlbum(
-          albumTitle: AlbumTitleEnum.reputation,
+          albumId: 1,
         );
 
         expect(songs, isNotEmpty);
-        expect(songs.first.name, 'Are you ready for it?');
+        expect(songs.first.title, 'Are you ready for it?');
       });
 
       test('returns an empty list if the songs response is empty', () async {
         when(
           () => apiClient.get<List<Map<String, dynamic>>>(
-            'songs/album/${AlbumTitleEnum.reputation}',
+            'albums/1',
           ),
         ).thenAnswer((_) async => []);
 
         final songs = await repository.getSongsByAlbum(
-          albumTitle: AlbumTitleEnum.reputation,
+          albumId: 1,
         );
 
         expect(songs, isEmpty);
@@ -116,14 +111,53 @@ void main() {
 
         when(
           () => apiClient.get<List<Map<String, dynamic>>>(
-            'songs/album/${AlbumTitleEnum.red}',
+            'albums/1',
           ),
         ).thenThrow(Exception('error'));
 
         expect(
-          () async =>
-              repository.getSongsByAlbum(albumTitle: AlbumTitleEnum.red),
+          () async => repository.getSongsByAlbum(albumId: 1),
           throwsA(isA<GetSongsException>()),
+        );
+      });
+    });
+
+    group('getSongLyrics', () {
+      final lyricsJson = <String, dynamic>{
+        'lyrics': 'lyrics',
+        'song_id': 1,
+        'album_id': 1,
+      };
+
+      test('returns song lyrics', () async {
+        when(
+          () => apiClient.get<Map<String, dynamic>>(
+            'lyrics/1',
+          ),
+        ).thenAnswer((_) async => lyricsJson);
+
+        final lyrics = await repository.getSongLyrics(
+          songId: 1,
+        );
+
+        expect(lyrics, isNotNull);
+        expect(lyrics, 'lyrics');
+      });
+
+      test('throws a GetLyricsException on error', () async {
+        final repository = SwiftifyRepository(apiClient: apiClient);
+
+        when(
+          () => apiClient.get<Map<String, dynamic>>(
+            'lyrics/1',
+          ),
+        ).thenThrow(Exception('error'));
+
+        expect(
+          () async => repository.getSongLyrics(
+            songId: 1,
+          ),
+          throwsA(isA<GetLyricsException>()),
         );
       });
     });

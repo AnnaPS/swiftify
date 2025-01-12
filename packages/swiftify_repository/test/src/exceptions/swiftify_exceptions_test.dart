@@ -22,5 +22,15 @@ void main() {
         );
       });
     });
+
+    group('GetLyricsException', () {
+      test('toString', () {
+        final exception = Exception();
+        expect(
+          GetLyricsException(exception).toString(),
+          equals('[GetLyricsException] $exception'),
+        );
+      });
+    });
   });
 }

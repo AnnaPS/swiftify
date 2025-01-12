@@ -34,3 +34,15 @@ class GetSongsException extends SwiftifyExceptions {
   @override
   String toString() => '[GetSongsException] $error';
 }
+
+/// {@template get_lyrics_exception}
+/// An exception thrown when something goes wrong
+/// when getting lyrics for a song.
+/// {@endtemplate}
+class GetLyricsException extends SwiftifyExceptions {
+  /// {@macro get_lyrics_exception}
+  const GetLyricsException(super.error);
+
+  @override
+  String toString() => '[GetLyricsException] $error';
+}
