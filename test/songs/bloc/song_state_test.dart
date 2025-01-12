@@ -39,8 +39,9 @@ void main() {
     test('copyWith comparisons', () {
       expect(
         SongState(
-                songs: const [Song(title: 'name')], status: SongStatus.loading)
-            .copyWith(),
+          songs: const [Song(title: 'name')],
+          status: SongStatus.loading,
+        ).copyWith(),
         equals(
           SongState(
             songs: const [Song(title: 'name')],
@@ -51,8 +52,9 @@ void main() {
 
       expect(
         SongState(
-                songs: const [Song(title: 'name')], status: SongStatus.loading)
-            .copyWith(songs: [Song(title: 'different')]),
+          songs: const [Song(title: 'name')],
+          status: SongStatus.loading,
+        ).copyWith(songs: [Song(title: 'different')]),
         equals(
           SongState(
             songs: const [Song(title: 'different')],
@@ -63,8 +65,9 @@ void main() {
 
       expect(
         SongState(
-                songs: const [Song(title: 'name')], status: SongStatus.loading)
-            .copyWith(status: SongStatus.success),
+          songs: const [Song(title: 'name')],
+          status: SongStatus.loading,
+        ).copyWith(status: SongStatus.success),
         equals(
           SongState(
             songs: const [Song(title: 'name')],
