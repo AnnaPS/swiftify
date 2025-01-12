@@ -31,22 +31,22 @@ void main() {
         setUp: () {
           when(
             () => swiftifyRepository.getSongsByAlbum(
-              albumTitle: AlbumIdEnum.evermore,
+              albumId: 1,
             ),
-          ).thenAnswer((_) async => [Song(name: 'willow')]);
+          ).thenAnswer((_) async => [Song(title: 'willow')]);
         },
         build: () => SongBloc(
           swiftifyRepository: swiftifyRepository,
         ),
         act: (bloc) => bloc.add(
           SongsRequested(
-            albumTitle: AlbumIdEnum.evermore,
+            albumId: 1,
           ),
         ),
         expect: () => [
           const SongState(status: SongStatus.loading),
           SongState(
-            songs: const [Song(name: 'willow')],
+            songs: const [Song(title: 'willow')],
             status: SongStatus.success,
           ),
         ],
@@ -57,7 +57,7 @@ void main() {
         setUp: () {
           when(
             () => swiftifyRepository.getSongsByAlbum(
-              albumTitle: AlbumIdEnum.evermore,
+              albumId: 1,
             ),
           ).thenThrow(Exception());
         },
@@ -66,7 +66,7 @@ void main() {
         ),
         act: (bloc) => bloc.add(
           SongsRequested(
-            albumTitle: AlbumIdEnum.evermore,
+            albumId: 1,
           ),
         ),
         expect: () => <SongState>[

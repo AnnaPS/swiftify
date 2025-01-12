@@ -14,6 +14,7 @@ class SwiftifyRepository {
   final ApiClient apiClient;
 
   /// Get Taylor Swift's albums from the API.
+  /// Returns a list of [Album]s ordered by release date.
   Future<List<Album>> getAlbums() async {
     try {
       final response = await apiClient.get<List<dynamic>>('albums');

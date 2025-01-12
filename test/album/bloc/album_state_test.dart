@@ -26,9 +26,8 @@ void main() {
 
       test('returns object with updated albums when albums are passed', () {
         final state = AlbumState();
-        final updatedState =
-            state.copyWith(albums: [Album(title: AlbumIdEnum.evermore)]);
-        expect(updatedState.albums, [Album(title: AlbumIdEnum.evermore)]);
+        final updatedState = state.copyWith(albums: [Album(title: 'evermore')]);
+        expect(updatedState.albums, [Album(title: 'evermore')]);
       });
 
       test('isSuccess', () {

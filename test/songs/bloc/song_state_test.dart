@@ -9,12 +9,12 @@ void main() {
     test('supports value comparisons', () {
       expect(
         SongState(
-          songs: const [Song(name: 'name')],
+          songs: const [Song(title: 'name')],
           status: SongStatus.loading,
         ),
         equals(
           SongState(
-            songs: const [Song(name: 'name')],
+            songs: const [Song(title: 'name')],
             status: SongStatus.loading,
           ),
         ),
@@ -22,13 +22,13 @@ void main() {
 
       expect(
         SongState(
-          songs: const [Song(name: 'name')],
+          songs: const [Song(title: 'name')],
           status: SongStatus.loading,
         ),
         isNot(
           equals(
             SongState(
-              songs: const [Song(name: 'different')],
+              songs: const [Song(title: 'different')],
               status: SongStatus.loading,
             ),
           ),
@@ -38,33 +38,36 @@ void main() {
 
     test('copyWith comparisons', () {
       expect(
-        SongState(songs: const [Song(name: 'name')], status: SongStatus.loading)
+        SongState(
+                songs: const [Song(title: 'name')], status: SongStatus.loading)
             .copyWith(),
         equals(
           SongState(
-            songs: const [Song(name: 'name')],
+            songs: const [Song(title: 'name')],
             status: SongStatus.loading,
           ),
         ),
       );
 
       expect(
-        SongState(songs: const [Song(name: 'name')], status: SongStatus.loading)
-            .copyWith(songs: [Song(name: 'different')]),
+        SongState(
+                songs: const [Song(title: 'name')], status: SongStatus.loading)
+            .copyWith(songs: [Song(title: 'different')]),
         equals(
           SongState(
-            songs: const [Song(name: 'different')],
+            songs: const [Song(title: 'different')],
             status: SongStatus.loading,
           ),
         ),
       );
 
       expect(
-        SongState(songs: const [Song(name: 'name')], status: SongStatus.loading)
+        SongState(
+                songs: const [Song(title: 'name')], status: SongStatus.loading)
             .copyWith(status: SongStatus.success),
         equals(
           SongState(
-            songs: const [Song(name: 'name')],
+            songs: const [Song(title: 'name')],
             status: SongStatus.success,
           ),
         ),

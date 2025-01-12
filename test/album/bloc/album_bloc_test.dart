@@ -31,7 +31,7 @@ void main() {
         setUp: () {
           when(
             () => swiftifyRepository.getAlbums(),
-          ).thenAnswer((_) async => [Album(title: AlbumIdEnum.evermore)]);
+          ).thenAnswer((_) async => [Album(title: 'evermore')]);
         },
         build: () => AlbumBloc(
           swiftifyRepository: swiftifyRepository,
@@ -40,7 +40,7 @@ void main() {
         expect: () => [
           const AlbumState(status: AlbumStatus.loading),
           AlbumState(
-            albums: const [Album(title: AlbumIdEnum.evermore)],
+            albums: const [Album(title: 'evermore')],
             status: AlbumStatus.success,
           ),
         ],
