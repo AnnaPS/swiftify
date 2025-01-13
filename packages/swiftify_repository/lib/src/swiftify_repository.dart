@@ -1,4 +1,4 @@
-import 'package:api_client/api_client.dart';
+import 'package:api_client/api_client.dart' hide Album, Song;
 import 'package:swiftify_repository/swiftify_repository.dart';
 
 /// {@template swiftify_repository}

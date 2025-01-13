@@ -69,3 +69,25 @@ class DeserializationException extends ApiException {
   @override
   String toString() => '[DeserializationException] $error';
 }
+
+/// {@template internal_server_error_exception}
+/// 500 Internal Server Error.
+/// {@endtemplate}
+class InternalServerErrorException extends ApiException {
+  /// {@macro internal_server_error_exception}
+  const InternalServerErrorException(super.error);
+
+  @override
+  String toString() => '[InternalServerErrorException] $error';
+}
+
+/// {@template not_found_exception}
+/// 404 Not Found.
+/// {@endtemplate}
+class NotFoundException extends ApiException {
+  /// {@macro not_found_exception}
+  const NotFoundException(super.error);
+
+  @override
+  String toString() => '[NotFoundException] $error';
+}
