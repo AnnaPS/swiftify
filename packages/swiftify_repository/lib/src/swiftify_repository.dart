@@ -1,4 +1,5 @@
-import 'package:api_client/api_client.dart' hide Album, Song;
+import 'package:api_client/api_client.dart';
+import 'package:swiftify_data_source/swiftify_data_source.dart';
 import 'package:swiftify_repository/swiftify_repository.dart';
 
 /// {@template swiftify_repository}
@@ -8,7 +9,10 @@ class SwiftifyRepository {
   /// {@macro swiftify_repository}
   SwiftifyRepository({
     ApiClient? apiClient,
-  }) : apiClient = apiClient ?? ApiClient();
+  }) : apiClient = apiClient ??
+            ApiClient(
+              baseUrl: 'http://localhost:8080/api/v1',
+            );
 
   /// The [ApiClient] used to communicate with the API.
   final ApiClient apiClient;
@@ -17,12 +21,10 @@ class SwiftifyRepository {
   /// Returns a list of [Album]s ordered by release date.
   Future<List<Album>> getAlbums() async {
     try {
-      final response = await apiClient.get<List<dynamic>>('albums');
-
-      return response
-              ?.map((e) => Album.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          <Album>[]
+      final albumResponse = await apiClient.get<List<dynamic>>('albums');
+      return albumResponse
+          .map((e) => Album.fromJson(e as Map<String, dynamic>))
+          .toList()
         ..sort((a, b) => a.releaseDate.compareTo(b.releaseDate));
     } catch (e, st) {
       Error.throwWithStackTrace(GetAlbumsException(e), st);
@@ -36,7 +38,7 @@ class SwiftifyRepository {
     try {
       final songsResponse =
           await apiClient.get<List<Map<String, dynamic>>>('albums/$albumId');
-      return songsResponse?.map(Song.fromJson).toList() ?? <Song>[];
+      return songsResponse.map(Song.fromJson).toList();
     } catch (e, st) {
       Error.throwWithStackTrace(GetSongsException(e), st);
     }
@@ -49,7 +51,7 @@ class SwiftifyRepository {
     try {
       final lyricsResponse =
           await apiClient.get<Map<String, dynamic>>('lyrics/$songId');
-      return lyricsResponse?['lyrics'] as String? ?? '';
+      return lyricsResponse['lyrics'] as String? ?? '';
     } catch (e, st) {
       Error.throwWithStackTrace(GetLyricsException(e), st);
     }

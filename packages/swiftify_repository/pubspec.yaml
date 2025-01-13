@@ -8,9 +8,17 @@ environment:
 
 dependencies:
   api_client:
-    path: ../api_client
+    git:
+      url: https://github.com/AnnaPS/swiftify_server.git
+      ref: feat/swiftify_data_source
+      path: packages/api_client
   equatable: ^2.0.7
   json_annotation: ^4.9.0
+  swiftify_data_source:
+    git:
+      url: https://github.com/AnnaPS/swiftify_server.git
+      ref: feat/swiftify_data_source
+      path: packages/swiftify_data_source
 
 dev_dependencies:
   build_runner: ^2.4.0

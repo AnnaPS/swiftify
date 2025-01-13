@@ -1,4 +1,4 @@
-import 'package:swiftify_repository/swiftify_repository.dart';
+import 'package:swiftify_data_source/swiftify_data_source.dart';
 import 'package:test/test.dart';
 
 void main() {

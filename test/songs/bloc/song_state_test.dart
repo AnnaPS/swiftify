@@ -2,7 +2,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:swiftify/songs/song.dart';
-import 'package:swiftify_repository/swiftify_repository.dart';
+import 'package:swiftify_data_source/swiftify_data_source.dart';
 
 void main() {
   group('SongState', () {

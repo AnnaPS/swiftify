@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:swiftify_data_source/swiftify_data_source.dart';
 import 'package:swiftify_repository/swiftify_repository.dart';
 
 part 'song_event.dart';

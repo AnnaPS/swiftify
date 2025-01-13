@@ -4,6 +4,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:swiftify/songs/song.dart';
+import 'package:swiftify_data_source/swiftify_data_source.dart';
 import 'package:swiftify_repository/swiftify_repository.dart';
 
 class _MockSwiftifyRepository extends Mock implements SwiftifyRepository {}

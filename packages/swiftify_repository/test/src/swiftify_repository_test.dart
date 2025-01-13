@@ -46,16 +46,6 @@ void main() {
         expect(albums.first.title, 'Reputation');
       });
 
-      test('returns an empty list if the albums response is null', () async {
-        when(
-          () => apiClient.get<List<dynamic>>('albums'),
-        ).thenAnswer((_) async => null);
-
-        final albums = await repository.getAlbums();
-
-        expect(albums, isEmpty);
-      });
-
       test('throws a GetAlbumsException on error', () async {
         final repository = SwiftifyRepository(apiClient: apiClient);
 
