@@ -19,8 +19,8 @@ class SongBloc extends Bloc<SongEvent, SongState> {
     SongsRequested event,
     Emitter<SongState> emit,
   ) async {
+    emit(state.copyWith(status: SongStatus.loading));
     try {
-      emit(state.copyWith(status: SongStatus.loading));
       final songs = await _swiftifyRepository.getSongsByAlbum(
         albumId: event.albumId,
       );

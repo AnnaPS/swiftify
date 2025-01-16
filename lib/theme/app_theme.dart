@@ -231,7 +231,7 @@ class AppTheme {
           bodyColor: colorScheme.onSurface,
           displayColor: colorScheme.onSurface,
         ),
-        scaffoldBackgroundColor: colorScheme.surfaceContainer,
+        scaffoldBackgroundColor: colorScheme.surface,
         canvasColor: colorScheme.surface,
         appBarTheme: AppBarTheme(
           backgroundColor: colorScheme.primary,
@@ -241,7 +241,11 @@ class AppTheme {
           backgroundColor: colorScheme.surface,
           selectedItemColor: colorScheme.primary,
           unselectedItemColor: colorScheme.onSurfaceVariant,
-          elevation: 4,
+        ),
+        cardTheme: CardTheme(
+          color: colorScheme.surfaceContainer,
+          shadowColor: colorScheme.shadow,
+          elevation: colorScheme.brightness == Brightness.dark ? 4 : 2,
         ),
       );
 }
