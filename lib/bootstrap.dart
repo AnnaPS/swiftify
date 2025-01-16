@@ -28,7 +28,8 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
       WidgetsFlutterBinding.ensureInitialized();
 
       HydratedBloc.storage = await HydratedStorage.build(
-        storageDirectory: await getApplicationSupportDirectory(),
+        storageDirectory:
+            HydratedStorageDirectory((await getTemporaryDirectory()).path),
       );
 
       FlutterError.onError = (details) {
@@ -38,10 +39,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
       Bloc.observer = const AppBlocObserver();
 
       await SystemChrome.setPreferredOrientations(
-        [
-          DeviceOrientation.portraitDown,
-          DeviceOrientation.portraitUp,
-        ],
+        [DeviceOrientation.portraitUp],
       );
 
       runApp(await builder());
