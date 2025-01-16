@@ -1,5 +1,4 @@
 import 'package:api_client/api_client.dart';
-import 'package:swiftify_data_source/swiftify_data_source.dart';
 import 'package:swiftify_repository/swiftify_repository.dart';
 
 /// {@template swiftify_repository}
