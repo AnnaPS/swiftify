@@ -2,21 +2,20 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:swiftify/songs/song.dart';
-import 'package:swiftify_repository/swiftify_repository.dart';
 
 void main() {
   group('SongsEvent', () {
     group('SongsByAlbumRequested', () {
       test('supports value comparisons', () {
         expect(
-          SongsByAlbumRequested(albumTitle: AlbumTitleEnum.taylorSwift),
-          equals(SongsByAlbumRequested(albumTitle: AlbumTitleEnum.taylorSwift)),
+          SongsRequested(albumId: 2),
+          equals(SongsRequested(albumId: 2)),
         );
 
         expect(
-          SongsByAlbumRequested(albumTitle: AlbumTitleEnum.taylorSwift),
+          SongsRequested(albumId: 1),
           isNot(
-            equals(SongsByAlbumRequested(albumTitle: AlbumTitleEnum.fearless)),
+            equals(SongsRequested(albumId: 2)),
           ),
         );
       });

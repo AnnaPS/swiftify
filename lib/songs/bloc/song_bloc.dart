@@ -10,19 +10,19 @@ class SongBloc extends Bloc<SongEvent, SongState> {
     required SwiftifyRepository swiftifyRepository,
   })  : _swiftifyRepository = swiftifyRepository,
         super(const SongState()) {
-    on<SongsByAlbumRequested>(_onSongsByAlbumRequested);
+    on<SongsRequested>(_onSongsByAlbumRequested);
   }
 
   final SwiftifyRepository _swiftifyRepository;
 
   Future<void> _onSongsByAlbumRequested(
-    SongsByAlbumRequested event,
+    SongsRequested event,
     Emitter<SongState> emit,
   ) async {
     try {
       emit(state.copyWith(status: SongStatus.loading));
       final songs = await _swiftifyRepository.getSongsByAlbum(
-        albumTitle: event.albumTitle,
+        albumId: event.albumId,
       );
       emit(
         state.copyWith(

@@ -26,8 +26,10 @@ packages:
     dependency: transitive
     description:
       path: "packages/api_client"
-      relative: true
-    source: path
+      ref: main
+      resolved-ref: ef73d45ca7fd91c8a4ca1c42f86b9e74c6778a33
+      url: "https://github.com/AnnaPS/swiftify_server.git"
+    source: git
     version: "0.1.0+1"
   args:
     dependency: transitive
@@ -125,22 +127,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.4.1"
-  dio:
-    dependency: transitive
-    description:
-      name: dio
-      sha256: "5598aa796bbf4699afd5c67c0f5f6e2ed542afc956884b9cd58c306966efc260"
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.7.0"
-  dio_web_adapter:
-    dependency: transitive
-    description:
-      name: dio_web_adapter
-      sha256: "33259a9276d6cea88774a0000cfae0d861003497755969c92faa223108620dc8"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.0"
   equatable:
     dependency: "direct main"
     description:
@@ -221,10 +207,10 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: "2fd11229f59e23e967b0775df8d5948a519cd7e1e8b6e849729e010587b46539"
+      sha256: "7c2d40b59890a929824f30d442e810116caf5088482629c894b9e4478c67472d"
       url: "https://pub.dev"
     source: hosted
-    version: "14.6.2"
+    version: "14.6.3"
   hive:
     dependency: transitive
     description:
@@ -574,6 +560,24 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.0"
+  swiftify_data_repository:
+    dependency: transitive
+    description:
+      path: "packages/swiftify_data_repository"
+      ref: main
+      resolved-ref: ef73d45ca7fd91c8a4ca1c42f86b9e74c6778a33
+      url: "https://github.com/AnnaPS/swiftify_server.git"
+    source: git
+    version: "0.1.0+1"
+  swiftify_data_source:
+    dependency: transitive
+    description:
+      path: "packages/swiftify_data_source"
+      ref: main
+      resolved-ref: ef73d45ca7fd91c8a4ca1c42f86b9e74c6778a33
+      url: "https://github.com/AnnaPS/swiftify_server.git"
+    source: git
+    version: "0.1.0+1"
   swiftify_repository:
     dependency: "direct main"
     description:
@@ -710,5 +714,5 @@ packages:
     source: hosted
     version: "3.1.3"
 sdks:
-  dart: ">=3.5.0 <4.0.0"
+  dart: ">=3.6.0 <4.0.0"
   flutter: ">=3.24.0"

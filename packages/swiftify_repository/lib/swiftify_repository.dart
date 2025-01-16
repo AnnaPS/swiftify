@@ -1,6 +1,7 @@
 /// Repository to get Taylor Swift information
-library;
+library swiftify_repository;
+
+export 'package:swiftify_data_source/swiftify_data_source.dart';
 
 export 'src/exceptions/exceptions.dart';
-export 'src/models/models.dart';
 export 'src/swiftify_repository.dart';

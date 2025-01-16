@@ -4,13 +4,13 @@ sealed class SongEvent extends Equatable {
   const SongEvent();
 }
 
-class SongsByAlbumRequested extends SongEvent {
-  const SongsByAlbumRequested({
-    required this.albumTitle,
+class SongsRequested extends SongEvent {
+  const SongsRequested({
+    required this.albumId,
   });
 
-  final AlbumTitleEnum albumTitle;
+  final int albumId;
 
   @override
-  List<Object> get props => [albumTitle];
+  List<Object> get props => [albumId];
 }
