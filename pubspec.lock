@@ -26,8 +26,8 @@ packages:
     dependency: transitive
     description:
       path: "packages/api_client"
-      ref: "feat/swiftify_data_source"
-      resolved-ref: e32743740dbf1bdbeaa82457fad6c39ea33c66d3
+      ref: main
+      resolved-ref: ef73d45ca7fd91c8a4ca1c42f86b9e74c6778a33
       url: "https://github.com/AnnaPS/swiftify_server.git"
     source: git
     version: "0.1.0+1"
@@ -207,10 +207,10 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: "2fd11229f59e23e967b0775df8d5948a519cd7e1e8b6e849729e010587b46539"
+      sha256: "7c2d40b59890a929824f30d442e810116caf5088482629c894b9e4478c67472d"
       url: "https://pub.dev"
     source: hosted
-    version: "14.6.2"
+    version: "14.6.3"
   hive:
     dependency: transitive
     description:
@@ -560,12 +560,21 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.0"
+  swiftify_data_repository:
+    dependency: transitive
+    description:
+      path: "packages/swiftify_data_repository"
+      ref: main
+      resolved-ref: ef73d45ca7fd91c8a4ca1c42f86b9e74c6778a33
+      url: "https://github.com/AnnaPS/swiftify_server.git"
+    source: git
+    version: "0.1.0+1"
   swiftify_data_source:
-    dependency: "direct main"
+    dependency: transitive
     description:
       path: "packages/swiftify_data_source"
-      ref: "feat/swiftify_data_source"
-      resolved-ref: e32743740dbf1bdbeaa82457fad6c39ea33c66d3
+      ref: main
+      resolved-ref: ef73d45ca7fd91c8a4ca1c42f86b9e74c6778a33
       url: "https://github.com/AnnaPS/swiftify_server.git"
     source: git
     version: "0.1.0+1"

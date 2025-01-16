@@ -19,11 +19,6 @@ dependencies:
   intl: ^0.19.0
   path_provider: ^2.1.5
   provider: ^6.1.1
-  swiftify_data_source:
-    git:
-      url: https://github.com/AnnaPS/swiftify_server.git
-      ref: feat/swiftify_data_source
-      path: packages/swiftify_data_source
   swiftify_repository:
     path: packages/swiftify_repository
 

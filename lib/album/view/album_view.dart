@@ -33,6 +33,9 @@ class AlbumList extends StatelessWidget {
         return ListTile(
           title: Text(album.title),
           subtitle: Text(album.releaseDate),
+          leading: album.coverAlbum != null
+              ? Image.network(album.coverAlbum!)
+              : null,
         );
       },
     );

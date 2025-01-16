@@ -24,8 +24,7 @@ class SwiftifyRepository {
       final albumResponse = await apiClient.get<List<dynamic>>('albums');
       return albumResponse
           .map((e) => Album.fromJson(e as Map<String, dynamic>))
-          .toList()
-        ..sort((a, b) => a.releaseDate.compareTo(b.releaseDate));
+          .toList();
     } catch (e, st) {
       Error.throwWithStackTrace(GetAlbumsException(e), st);
     }
