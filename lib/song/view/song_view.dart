@@ -27,7 +27,10 @@ class SongView extends StatelessWidget {
         final song = songs[index];
         return isLoading
             ? const Center(child: CircularProgressIndicator())
-            : SongItem(coverAlbum: coverAlbum, song: song);
+            : SongItem(
+                coverAlbum: coverAlbum,
+                song: song,
+              );
       },
     );
   }
@@ -50,34 +53,34 @@ class SongItem extends StatelessWidget {
 
     return Card(
       margin: const EdgeInsets.all(8),
-      child: ListTile(
-        leading: AlbumSongImage(coverAlbum: coverAlbum),
-        title: Text(
-          song.title,
-          style: textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
-        ),
-        subtitle: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text('Taylor Swift'),
-            Text(song.duration ?? ''),
-            if (song.genres != null && song.genres!.isNotEmpty) ...[
-              Row(
-                children: song.genres!
-                    .map(
-                      (genre) => Chip(
-                        label: Text(genre, style: textTheme.labelMedium),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(24),
-                        ),
-                      ),
-                    )
-                    .toList(),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          AlbumSongImage(coverAlbum: coverAlbum),
+          Flexible(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    song.title,
+                    style: textTheme.bodyLarge
+                        ?.copyWith(fontWeight: FontWeight.bold),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const Text('Taylor Swift'),
+                  Text(song.duration ?? ''),
+                  if (song.genres != null && song.genres!.isNotEmpty) ...[
+                    SongGenres(genres: song.genres),
+                  ],
+                ],
               ),
-            ],
-          ],
-        ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -93,6 +96,8 @@ class AlbumSongImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.sizeOf(context).height * 0.13;
+
     return Container(
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
@@ -100,8 +105,46 @@ class AlbumSongImage extends StatelessWidget {
       ),
       child: Image.network(
         coverAlbum!,
-        height: 100,
+        fit: BoxFit.cover,
+        height: height,
       ),
+    );
+  }
+}
+
+class SongGenres extends StatelessWidget {
+  const SongGenres({
+    required this.genres,
+    super.key,
+  });
+
+  final List<String>? genres;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+
+    return Row(
+      children: genres!
+          .map(
+            (genre) => Padding(
+              padding: const EdgeInsets.only(
+                left: 4,
+                right: 4,
+              ),
+              child: Chip(
+                label: Text(
+                  genre,
+                  style: textTheme.labelMedium,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(24),
+                ),
+              ),
+            ),
+          )
+          .toList(),
     );
   }
 }

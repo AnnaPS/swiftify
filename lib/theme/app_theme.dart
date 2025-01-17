@@ -242,10 +242,9 @@ class AppTheme {
           selectedItemColor: colorScheme.primary,
           unselectedItemColor: colorScheme.onSurfaceVariant,
         ),
-        cardTheme: CardTheme(
-          color: colorScheme.surfaceContainer,
-          shadowColor: colorScheme.shadow,
-          elevation: colorScheme.brightness == Brightness.dark ? 4 : 2,
+        chipTheme: ChipThemeData(
+          backgroundColor: colorScheme.secondaryContainer,
+          brightness: colorScheme.brightness,
         ),
       );
 }
