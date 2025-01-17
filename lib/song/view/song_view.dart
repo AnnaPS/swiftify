@@ -27,7 +27,7 @@ class SongView extends StatelessWidget {
         final song = songs[index];
         return isLoading
             ? const Center(child: CircularProgressIndicator())
-            : SongItem(
+            : SongCard(
                 coverAlbum: coverAlbum,
                 song: song,
               );
@@ -36,8 +36,8 @@ class SongView extends StatelessWidget {
   }
 }
 
-class SongItem extends StatelessWidget {
-  const SongItem({
+class SongCard extends StatelessWidget {
+  const SongCard({
     required this.coverAlbum,
     required this.song,
     super.key,
@@ -48,37 +48,16 @@ class SongItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final textTheme = theme.textTheme;
-
     return Card(
       margin: const EdgeInsets.all(8),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           AlbumSongImage(coverAlbum: coverAlbum),
-          Flexible(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    song.title,
-                    style: textTheme.bodyLarge
-                        ?.copyWith(fontWeight: FontWeight.bold),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const Text('Taylor Swift'),
-                  Text(song.duration ?? ''),
-                  if (song.genres != null && song.genres!.isNotEmpty) ...[
-                    SongGenres(genres: song.genres),
-                  ],
-                ],
-              ),
-            ),
+          SongInformation(
+            title: song.title,
+            duration: song.duration,
+            genres: song.genres,
           ),
         ],
       ),
@@ -96,17 +75,64 @@ class AlbumSongImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.sizeOf(context).height * 0.13;
-
-    return Container(
-      clipBehavior: Clip.hardEdge,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
+    return Expanded(
+      child: Container(
+        constraints: const BoxConstraints(
+          maxWidth: 80,
+        ),
+        clipBehavior: Clip.hardEdge,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Image.network(
+          coverAlbum!,
+          fit: BoxFit.cover,
+        ),
       ),
-      child: Image.network(
-        coverAlbum!,
-        fit: BoxFit.cover,
-        height: height,
+    );
+  }
+}
+
+class SongInformation extends StatelessWidget {
+  const SongInformation({
+    required this.title,
+    required this.duration,
+    required this.genres,
+    super.key,
+  });
+
+  final String title;
+  final String? duration;
+  final List<String>? genres;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+
+    return Flexible(
+      flex: 3,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+              maxLines: 2,
+              overflow: TextOverflow.visible,
+            ),
+            Text(duration ?? '', style: textTheme.labelLarge),
+            if (genres != null && genres!.isNotEmpty) ...[
+              const SizedBox(height: 4),
+              SongGenres(genres: genres),
+            ],
+          ],
+        ),
       ),
     );
   }
@@ -124,27 +150,29 @@ class SongGenres extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
+    final colorScheme = theme.colorScheme;
 
     return Row(
-      children: genres!
-          .map(
-            (genre) => Padding(
-              padding: const EdgeInsets.only(
-                left: 4,
-                right: 4,
-              ),
-              child: Chip(
-                label: Text(
-                  genre,
-                  style: textTheme.labelMedium,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(24),
+      children: [
+        for (final genre in genres!)
+          Row(
+            children: [
+              Text(
+                genre,
+                style: textTheme.bodySmall?.copyWith(
+                  color: colorScheme.primary,
                 ),
               ),
-            ),
-          )
-          .toList(),
+              if (genre != genres!.last)
+                Text(
+                  ' • ',
+                  style: textTheme.bodySmall?.copyWith(
+                    color: colorScheme.primary,
+                  ),
+                ),
+            ],
+          ),
+      ],
     );
   }
 }
