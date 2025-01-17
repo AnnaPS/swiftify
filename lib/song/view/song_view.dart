@@ -18,21 +18,22 @@ class SongView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final songs = context.select((SongBloc bloc) => bloc.state.songs);
-
     final isLoading = context.select((SongBloc bloc) => bloc.state.isLoading);
 
-    return ListView.builder(
-      itemCount: songs.length,
-      itemBuilder: (context, index) {
-        final song = songs[index];
-        return isLoading
-            ? const Center(child: CircularProgressIndicator())
-            : SongCard(
+    return isLoading
+        ? const Center(
+            child: CircularProgressIndicator(),
+          )
+        : ListView.builder(
+            itemCount: songs.length,
+            itemBuilder: (context, index) {
+              final song = songs[index];
+              return SongCard(
                 coverAlbum: coverAlbum,
                 song: song,
               );
-      },
-    );
+            },
+          );
   }
 }
 
@@ -53,7 +54,7 @@ class SongCard extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          AlbumSongImage(coverAlbum: coverAlbum),
+          AlbumCoverImage(coverAlbum: coverAlbum),
           SongInformation(
             title: song.title,
             duration: song.duration,
@@ -65,8 +66,8 @@ class SongCard extends StatelessWidget {
   }
 }
 
-class AlbumSongImage extends StatelessWidget {
-  const AlbumSongImage({
+class AlbumCoverImage extends StatelessWidget {
+  const AlbumCoverImage({
     required this.coverAlbum,
     super.key,
   });
