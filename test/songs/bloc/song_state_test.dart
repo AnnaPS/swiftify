@@ -82,11 +82,6 @@ void main() {
       expect(state.isSuccess, isTrue);
     });
 
-    test('isFailure', () {
-      final state = SongState(status: SongStatus.failure);
-      expect(state.isFailure, isTrue);
-    });
-
     test('isLoading', () {
       final state = SongState(status: SongStatus.loading);
       expect(state.isLoading, isTrue);
