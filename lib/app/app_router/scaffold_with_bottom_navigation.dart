@@ -1,28 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:swiftify/app/app_router/routes/dashboard_routes.dart';
 import 'package:swiftify/l10n/l10n.dart';
-import 'package:swiftify/theme/view/theme_bottom_sheet.dart';
 
 class ScaffoldWithBottomNavigation extends StatelessWidget {
   const ScaffoldWithBottomNavigation({
-    required this.navigationShell,
+    required this.child,
     super.key,
   });
 
-  final StatefulNavigationShell navigationShell;
+  final Widget child;
 
-  void _goBranch(int index) {
-    navigationShell.goBranch(
-      index,
-      initialLocation: index == navigationShell.currentIndex,
-    );
+  int getCurrentIndex(BuildContext context) {
+    final location = GoRouterState.of(context).uri.path;
+    if (location.startsWith('/favorites')) {
+      return 1;
+    }
+    return 0;
+  }
+
+  void _onTap(int index, BuildContext context) {
+    switch (index) {
+      case 0:
+        const AlbumPageRoute().go(context);
+      case 1:
+        const FavoritesPageRoute().go(context);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
 
-    final currentIndex = navigationShell.currentIndex;
+    final currentIndex = getCurrentIndex(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -32,14 +42,14 @@ class ScaffoldWithBottomNavigation extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.lightbulb_outline),
-            onPressed: () => context.push(ThemeBottomSheet.routeName),
+            onPressed: () => context.push(ThemePageRoute.routeName),
           ),
         ],
       ),
-      body: navigationShell,
+      body: child,
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: navigationShell.currentIndex,
-        onTap: _goBranch,
+        currentIndex: currentIndex,
+        onTap: (index) => _onTap(index, context),
         items: [
           BottomNavigationBarItem(
             icon: const Icon(Icons.album_outlined),

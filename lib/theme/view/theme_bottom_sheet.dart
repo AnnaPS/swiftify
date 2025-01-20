@@ -7,22 +7,14 @@ import 'package:swiftify/widgets/bottom_sheet_base.dart';
 class ThemeBottomSheet extends StatelessWidget {
   const ThemeBottomSheet({super.key});
 
-  factory ThemeBottomSheet.pageBuilder(_, __) {
-    return const ThemeBottomSheet();
-  }
-
-  static const routeName = '/theme';
-
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
 
     return BottomSheetBase(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        child: GridView.count(
-          crossAxisCount: 3,
-          mainAxisSpacing: 8,
+      child: Expanded(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             CardItem(
               title: l10n.system,
