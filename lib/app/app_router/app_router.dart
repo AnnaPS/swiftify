@@ -1,11 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:swiftify/app/app_router/routes/dashboard_routes.dart';
+import 'package:swiftify/app/app_router/routes/routes.dart';
 
 export 'go_router_observer.dart';
-
-final rootNavigatorKey = GlobalKey<NavigatorState>();
 
 class AppRouter {
   AppRouter({
@@ -25,7 +23,7 @@ class AppRouter {
     List<NavigatorObserver> navigatorObservers,
   ) {
     return GoRouter(
-      initialLocation: '/albums',
+      initialLocation: const AlbumPageRoute().location,
       observers: navigatorObservers,
       debugLogDiagnostics: kDebugMode,
       navigatorKey: rootNavigatorKey,

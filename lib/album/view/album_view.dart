@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swiftify/album/album.dart';
-import 'package:swiftify/app/app_router/routes/dashboard_routes.dart';
+import 'package:swiftify/app/app_router/router.dart';
 
 class AlbumView extends StatelessWidget {
   const AlbumView({super.key});
@@ -82,7 +82,7 @@ class AlbumsContent extends StatelessWidget {
         final album = albums[index];
         return GestureDetector(
           onTap: () => SongPageRoute(
-            albumId: album.albumId,
+            id: album.albumId,
             albumTitle: album.title,
             coverAlbum: album.coverAlbum,
             albumReleaseDate: album.releaseDate,

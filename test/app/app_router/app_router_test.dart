@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:swiftify/album/album.dart';
 import 'package:swiftify/app/app_router/app_router.dart';
-import 'package:swiftify/app/app_router/routes/dashboard_routes.dart';
+import 'package:swiftify/app/app_router/routes/routes.dart';
 import 'package:swiftify/favorites/favorites.dart';
 import 'package:swiftify/theme/theme.dart';
 
@@ -60,7 +60,7 @@ void main() {
           appRouter: appRouter,
         );
 
-        appRouter.routes.go(AlbumPageRoute.routeName);
+        appRouter.routes.go(AlbumPageRoute.path);
 
         await tester.pumpAndSettle();
         expect(find.byType(AlbumPage), findsOneWidget);
@@ -76,7 +76,7 @@ void main() {
         );
 
         bottomNav.onTap!(1);
-        appRouter.routes.go(FavoritesPageRoute.routeName);
+        appRouter.routes.go(FavoritesPageRoute.path);
 
         await tester.pumpAndSettle();
         expect(find.byType(FavoritesPage), findsOneWidget);
@@ -92,7 +92,7 @@ void main() {
         );
 
         iconButton.onPressed!();
-        appRouter.routes.go(ThemePageRoute.routeName);
+        appRouter.routes.go(ThemePageRoute.path);
 
         await tester.pumpAndSettle();
         expect(find.byType(ThemeBottomSheet), findsOneWidget);

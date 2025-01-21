@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:swiftify/app/app_router/routes/dashboard_routes.dart';
+import 'package:swiftify/app/app_router/router.dart';
 import 'package:swiftify/l10n/l10n.dart';
 
 class ScaffoldWithBottomNavigation extends StatelessWidget {
@@ -12,11 +12,12 @@ class ScaffoldWithBottomNavigation extends StatelessWidget {
   final Widget child;
 
   int getCurrentIndex(BuildContext context) {
-    final location = GoRouterState.of(context).uri.path;
-    if (location.startsWith('/favorites')) {
+    final path = GoRouterState.of(context).uri.path;
+    if (path == AlbumPageRoute.path) {
+      return 0;
+    } else {
       return 1;
     }
-    return 0;
   }
 
   void _onTap(int index, BuildContext context) {
@@ -42,7 +43,7 @@ class ScaffoldWithBottomNavigation extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.lightbulb_outline),
-            onPressed: () => context.push(ThemePageRoute.routeName),
+            onPressed: () => const ThemePageRoute().push<void>(context),
           ),
         ],
       ),

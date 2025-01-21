@@ -1,25 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'dashboard_routes.dart';
+part of 'routes.dart';
 
 // **************************************************************************
 // GoRouterGenerator
 // **************************************************************************
 
 List<RouteBase> get $appRoutes => [
-      $dashboardShellRoute,
+      $appShellRoute,
     ];
 
-RouteBase get $dashboardShellRoute => ShellRouteData.$route(
-      factory: $DashboardShellRouteExtension._fromState,
+RouteBase get $appShellRoute => ShellRouteData.$route(
+      navigatorKey: AppShellRoute.$navigatorKey,
+      factory: $AppShellRouteExtension._fromState,
       routes: [
         GoRouteData.$route(
-          path: '/albums',
+          path: '/',
           factory: $AlbumPageRouteExtension._fromState,
           routes: [
             GoRouteData.$route(
-              path: 'songs',
-              name: 'songs',
+              path: 'songs/:id',
+              parentNavigatorKey: SongPageRoute.$parentNavigatorKey,
               factory: $SongPageRouteExtension._fromState,
             ),
           ],
@@ -35,9 +36,8 @@ RouteBase get $dashboardShellRoute => ShellRouteData.$route(
       ],
     );
 
-extension $DashboardShellRouteExtension on DashboardShellRoute {
-  static DashboardShellRoute _fromState(GoRouterState state) =>
-      const DashboardShellRoute();
+extension $AppShellRouteExtension on AppShellRoute {
+  static AppShellRoute _fromState(GoRouterState state) => const AppShellRoute();
 }
 
 extension $AlbumPageRouteExtension on AlbumPageRoute {
@@ -45,7 +45,7 @@ extension $AlbumPageRouteExtension on AlbumPageRoute {
       const AlbumPageRoute();
 
   String get location => GoRouteData.$location(
-        '/albums',
+        '/',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -60,16 +60,15 @@ extension $AlbumPageRouteExtension on AlbumPageRoute {
 
 extension $SongPageRouteExtension on SongPageRoute {
   static SongPageRoute _fromState(GoRouterState state) => SongPageRoute(
-        albumId: int.parse(state.uri.queryParameters['album-id']!),
+        id: int.parse(state.pathParameters['id']!),
         albumTitle: state.uri.queryParameters['album-title'],
         coverAlbum: state.uri.queryParameters['cover-album'],
         albumReleaseDate: state.uri.queryParameters['album-release-date'],
       );
 
   String get location => GoRouteData.$location(
-        '/albums/songs',
+        '/songs/${Uri.encodeComponent(id.toString())}',
         queryParams: {
-          'album-id': albumId.toString(),
           if (albumTitle != null) 'album-title': albumTitle,
           if (coverAlbum != null) 'cover-album': coverAlbum,
           if (albumReleaseDate != null) 'album-release-date': albumReleaseDate,

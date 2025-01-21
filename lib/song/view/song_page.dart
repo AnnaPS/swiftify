@@ -6,9 +6,9 @@ import 'package:swiftify_repository/swiftify_repository.dart';
 class SongPage extends StatelessWidget {
   const SongPage({
     required this.albumId,
-    this.albumReleaseDate,
-    this.coverAlbum,
     this.albumTitle,
+    this.coverAlbum,
+    this.albumReleaseDate,
     super.key,
   });
 
@@ -23,9 +23,7 @@ class SongPage extends StatelessWidget {
       create: (context) => SongBloc(
         swiftifyRepository: context.read<SwiftifyRepository>(),
       )..add(
-          SongsRequested(
-            albumId: albumId,
-          ),
+          SongsRequested(albumId: albumId),
         ),
       child: Scaffold(
         appBar: AppBar(
