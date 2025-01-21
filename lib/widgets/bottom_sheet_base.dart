@@ -22,7 +22,7 @@ class BottomSheetBase extends StatelessWidget {
             top: Radius.circular(12),
           ),
         ),
-        child: Expanded(child: child),
+        child: child,
       ),
     );
   }

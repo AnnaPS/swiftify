@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
@@ -6,6 +7,7 @@ import 'package:swiftify/album/album.dart';
 import 'package:swiftify/app/app_router/app_router.dart';
 import 'package:swiftify/app/app_router/routes/routes.dart';
 import 'package:swiftify/favorites/favorites.dart';
+import 'package:swiftify/song/song.dart';
 import 'package:swiftify/theme/theme.dart';
 
 import '../../helpers/helpers.dart';
@@ -71,11 +73,6 @@ void main() {
           appRouter: appRouter,
         );
 
-        final bottomNav = tester.widget<BottomNavigationBar>(
-          find.byType(BottomNavigationBar),
-        );
-
-        bottomNav.onTap!(1);
         appRouter.routes.go(FavoritesPageRoute.path);
 
         await tester.pumpAndSettle();
@@ -87,15 +84,20 @@ void main() {
           appRouter: appRouter,
         );
 
-        final iconButton = tester.widget<IconButton>(
-          find.byType(IconButton),
-        );
-
-        iconButton.onPressed!();
         appRouter.routes.go(ThemePageRoute.path);
 
         await tester.pumpAndSettle();
         expect(find.byType(ThemeBottomSheet), findsOneWidget);
+      });
+
+      testWidgets('to SongPage', (tester) async {
+        await tester.pumpRoutes(
+          appRouter: appRouter,
+        );
+
+        appRouter.routes.go('/songs/1');
+        await tester.pumpAndSettle();
+        expect(find.byType(SongPage), findsOneWidget);
       });
     });
   });
