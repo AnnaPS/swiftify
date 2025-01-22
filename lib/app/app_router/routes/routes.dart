@@ -58,8 +58,8 @@ class ThemePageRoute extends GoRouteData {
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return ModalPopupPage(
-      builder: (context) => const ThemeBottomSheet(),
+    return ModalBottomSheet(
+      builder: (_) => const ThemeBottomSheet(),
     );
   }
 }

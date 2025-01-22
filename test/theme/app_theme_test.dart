@@ -16,7 +16,7 @@ void main() {
       test('colorScheme primary is correct', () {
         expect(
           appTheme.light.colorScheme.primary,
-          equals(Color(0xff1a6b51)),
+          equals(Color(0xff5e5f5c)),
         );
       });
     });
@@ -26,7 +26,7 @@ void main() {
         expect(
           appTheme.lightHighContrast.colorScheme.primary,
           equals(
-            Color(0xff00281c),
+            Color(0xff2b2c2b),
           ),
         );
       });
@@ -36,7 +36,7 @@ void main() {
       test('colorScheme primary is correct', () {
         expect(
           appTheme.dark.colorScheme.primary,
-          equals(Color(0xff8ad6b7)),
+          equals(Color(0xffedece9)),
         );
       });
     });
@@ -45,7 +45,7 @@ void main() {
       test('colorScheme primary is correct', () {
         expect(
           AppTheme().darkHighContrast.colorScheme.primary,
-          equals(Color(0xffedfff4)),
+          equals(Color(0xffedece9)),
         );
       });
     });
