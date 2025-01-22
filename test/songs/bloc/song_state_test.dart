@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:swiftify/songs/song.dart';
+import 'package:swiftify/song/song.dart';
 import 'package:swiftify_repository/swiftify_repository.dart';
 
 void main() {
@@ -80,11 +80,6 @@ void main() {
     test('isSuccess', () {
       final state = SongState(status: SongStatus.success);
       expect(state.isSuccess, isTrue);
-    });
-
-    test('isFailure', () {
-      final state = SongState(status: SongStatus.failure);
-      expect(state.isFailure, isTrue);
     });
 
     test('isLoading', () {

@@ -13,7 +13,6 @@ class SongState extends Equatable {
 
   bool get isLoading => status == SongStatus.loading;
   bool get isSuccess => status == SongStatus.success;
-  bool get isFailure => status == SongStatus.failure;
 
   SongState copyWith({
     List<Song>? songs,
