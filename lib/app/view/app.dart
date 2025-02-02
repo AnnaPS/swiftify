@@ -6,7 +6,7 @@ import 'package:swiftify/theme/app_theme.dart';
 import 'package:swiftify/theme/bloc/theme_bloc.dart';
 import 'package:swiftify_repository/swiftify_repository.dart';
 
-class App extends StatefulWidget {
+class App extends StatelessWidget {
   const App({
     required SwiftifyRepository swiftifyRepository,
     super.key,
@@ -15,15 +15,13 @@ class App extends StatefulWidget {
   final SwiftifyRepository _swiftifyRepository;
 
   @override
-  State<App> createState() => _AppState();
-}
-
-class _AppState extends State<App> {
-  @override
   Widget build(BuildContext context) {
     return RepositoryProvider.value(
-      value: widget._swiftifyRepository,
-      child: BlocProvider(create: (_) => ThemeBloc(), child: const AppView()),
+      value: _swiftifyRepository,
+      child: BlocProvider(
+        create: (_) => ThemeBloc(),
+        child: const AppView(),
+      ),
     );
   }
 }

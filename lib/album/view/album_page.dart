@@ -6,8 +6,6 @@ import 'package:swiftify_repository/swiftify_repository.dart';
 class AlbumPage extends StatelessWidget {
   const AlbumPage({super.key});
 
-  static const routeName = '/album';
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(

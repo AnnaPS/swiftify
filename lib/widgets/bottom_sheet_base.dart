@@ -14,7 +14,7 @@ class BottomSheetBase extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     return SizedBox(
-      height: height ?? MediaQuery.of(context).size.height * 0.3,
+      height: height ?? MediaQuery.of(context).size.height * 0.2,
       child: DecoratedBox(
         decoration: BoxDecoration(
           color: colorScheme.surfaceTint,
@@ -22,10 +22,7 @@ class BottomSheetBase extends StatelessWidget {
             top: Radius.circular(12),
           ),
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: child,
-        ),
+        child: child,
       ),
     );
   }

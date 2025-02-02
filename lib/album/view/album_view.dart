@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:swiftify/album/bloc/album_bloc.dart';
+import 'package:swiftify/album/album.dart';
+import 'package:swiftify/app/app_router/router.dart';
 
 class AlbumView extends StatelessWidget {
   const AlbumView({super.key});
@@ -10,22 +11,26 @@ class AlbumView extends StatelessWidget {
     final isLoading = context.select((AlbumBloc bloc) => bloc.state.isLoading);
     final isSuccess = context.select((AlbumBloc bloc) => bloc.state.isSuccess);
 
-    return isLoading
-        ? const Center(
-            child: CircularProgressIndicator(),
-          )
-        : isSuccess
-            ? const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  AlbumsHeader(),
-                  Expanded(
-                    child: AlbumsContent(),
-                  ),
-                ],
-              )
-            : const Text('Failed to fetch albums');
+    if (isLoading) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    } else {
+      if (isSuccess) {
+        return const Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            AlbumsHeader(),
+            Expanded(
+              child: AlbumsContent(),
+            ),
+          ],
+        );
+      } else {
+        return const Text('Failed to fetch albums');
+      }
+    }
   }
 }
 
@@ -79,10 +84,18 @@ class AlbumsContent extends StatelessWidget {
       itemCount: albums.length,
       itemBuilder: (context, index) {
         final album = albums[index];
-        return AlbumItem(
-          title: album.title,
-          releaseDate: album.releaseDate,
-          coverAlbum: album.coverAlbum,
+        return GestureDetector(
+          onTap: () => SongsPageRoute(
+            albumId: album.albumId,
+            albumTitle: album.title,
+            coverAlbum: album.coverAlbum,
+            albumReleaseDate: album.releaseDate,
+          ).push<void>(context),
+          child: AlbumItem(
+            title: album.title,
+            releaseDate: album.releaseDate,
+            coverAlbum: album.coverAlbum,
+          ),
         );
       },
     );

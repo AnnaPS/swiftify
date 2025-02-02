@@ -3,7 +3,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:swiftify/songs/song.dart';
+import 'package:swiftify/songs/songs.dart';
 import 'package:swiftify_repository/swiftify_repository.dart';
 
 class _MockSwiftifyRepository extends Mock implements SwiftifyRepository {}
@@ -21,12 +21,12 @@ void main() {
         SongBloc(
           swiftifyRepository: swiftifyRepository,
         ).state,
-        const SongState(),
+        const SongsState(),
       );
     });
 
     group('SongsByAlbumRequested', () {
-      blocTest<SongBloc, SongState>(
+      blocTest<SongBloc, SongsState>(
         'emits state with updated songs',
         setUp: () {
           when(
@@ -44,15 +44,15 @@ void main() {
           ),
         ),
         expect: () => [
-          const SongState(status: SongStatus.loading),
-          SongState(
+          const SongsState(status: SongsStatus.loading),
+          SongsState(
             songs: const [Song(title: 'willow')],
-            status: SongStatus.success,
+            status: SongsStatus.success,
           ),
         ],
       );
 
-      blocTest<SongBloc, SongState>(
+      blocTest<SongBloc, SongsState>(
         'emits failure when an error occurs',
         setUp: () {
           when(
@@ -69,9 +69,9 @@ void main() {
             albumId: 1,
           ),
         ),
-        expect: () => <SongState>[
-          const SongState(status: SongStatus.loading),
-          const SongState(status: SongStatus.failure),
+        expect: () => <SongsState>[
+          const SongsState(status: SongsStatus.loading),
+          const SongsState(status: SongsStatus.failure),
         ],
       );
     });

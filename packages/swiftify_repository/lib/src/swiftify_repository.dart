@@ -35,14 +35,16 @@ class SwiftifyRepository {
   }) async {
     try {
       final songsResponse =
-          await apiClient.get<List<Map<String, dynamic>>>('albums/$albumId');
-      return songsResponse.map(Song.fromJson).toList();
+          await apiClient.get<List<dynamic>>('albums/$albumId');
+      return songsResponse
+          .map((e) => Song.fromJson(e as Map<String, dynamic>))
+          .toList();
     } catch (e, st) {
       Error.throwWithStackTrace(GetSongsException(e), st);
     }
   }
 
-  /// Get lyrics for a song from the API.
+  /// Get lyrics by [songId] from the API.
   Future<String> getSongLyrics({
     required int songId,
   }) async {
