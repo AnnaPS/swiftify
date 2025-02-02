@@ -1,35 +1,35 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:swiftify/song/song.dart';
+import 'package:swiftify/songs/songs.dart';
 import 'package:swiftify_repository/swiftify_repository.dart';
 
 void main() {
   group('SongState', () {
     test('supports value comparisons', () {
       expect(
-        SongState(
+        SongsState(
           songs: const [Song(title: 'name')],
-          status: SongStatus.loading,
+          status: SongsStatus.loading,
         ),
         equals(
-          SongState(
+          SongsState(
             songs: const [Song(title: 'name')],
-            status: SongStatus.loading,
+            status: SongsStatus.loading,
           ),
         ),
       );
 
       expect(
-        SongState(
+        SongsState(
           songs: const [Song(title: 'name')],
-          status: SongStatus.loading,
+          status: SongsStatus.loading,
         ),
         isNot(
           equals(
-            SongState(
+            SongsState(
               songs: const [Song(title: 'different')],
-              status: SongStatus.loading,
+              status: SongsStatus.loading,
             ),
           ),
         ),
@@ -38,52 +38,52 @@ void main() {
 
     test('copyWith comparisons', () {
       expect(
-        SongState(
+        SongsState(
           songs: const [Song(title: 'name')],
-          status: SongStatus.loading,
+          status: SongsStatus.loading,
         ).copyWith(),
         equals(
-          SongState(
+          SongsState(
             songs: const [Song(title: 'name')],
-            status: SongStatus.loading,
+            status: SongsStatus.loading,
           ),
         ),
       );
 
       expect(
-        SongState(
+        SongsState(
           songs: const [Song(title: 'name')],
-          status: SongStatus.loading,
+          status: SongsStatus.loading,
         ).copyWith(songs: [Song(title: 'different')]),
         equals(
-          SongState(
+          SongsState(
             songs: const [Song(title: 'different')],
-            status: SongStatus.loading,
+            status: SongsStatus.loading,
           ),
         ),
       );
 
       expect(
-        SongState(
+        SongsState(
           songs: const [Song(title: 'name')],
-          status: SongStatus.loading,
-        ).copyWith(status: SongStatus.success),
+          status: SongsStatus.loading,
+        ).copyWith(status: SongsStatus.success),
         equals(
-          SongState(
+          SongsState(
             songs: const [Song(title: 'name')],
-            status: SongStatus.success,
+            status: SongsStatus.success,
           ),
         ),
       );
     });
 
     test('isSuccess', () {
-      final state = SongState(status: SongStatus.success);
+      final state = SongsState(status: SongsStatus.success);
       expect(state.isSuccess, isTrue);
     });
 
     test('isLoading', () {
-      final state = SongState(status: SongStatus.loading);
+      final state = SongsState(status: SongsStatus.loading);
       expect(state.isLoading, isTrue);
     });
   });

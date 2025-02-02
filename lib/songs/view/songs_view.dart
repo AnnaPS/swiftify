@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:swiftify/song/song.dart';
+import 'package:swiftify/songs/songs.dart';
 import 'package:swiftify_repository/swiftify_repository.dart';
 
-class SongView extends StatelessWidget {
-  const SongView({
+class SongsView extends StatelessWidget {
+  const SongsView({
     required this.albumTitle,
     required this.coverAlbum,
     required this.releaseDate,
@@ -19,20 +19,44 @@ class SongView extends StatelessWidget {
   Widget build(BuildContext context) {
     final songs = context.select((SongBloc bloc) => bloc.state.songs);
     final isLoading = context.select((SongBloc bloc) => bloc.state.isLoading);
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
 
     return isLoading
         ? const Center(
             child: CircularProgressIndicator(),
           )
-        : ListView.builder(
-            itemCount: songs.length,
-            itemBuilder: (context, index) {
-              final song = songs[index];
-              return SongCard(
-                coverAlbum: coverAlbum,
-                song: song,
-              );
-            },
+        : Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 16,
+                    bottom: 8,
+                  ),
+                  child: Text(
+                    albumTitle,
+                    style: textTheme.headlineLarge,
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: songs.length,
+                    itemBuilder: (context, index) {
+                      final song = songs[index];
+                      return SongCard(
+                        coverAlbum: coverAlbum,
+                        song: song,
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
           );
   }
 }
@@ -49,18 +73,23 @@ class SongCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.all(8),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          AlbumCoverImage(coverAlbum: coverAlbum),
-          SongInformation(
-            title: song.title,
-            duration: song.duration,
-            genres: song.genres,
-          ),
-        ],
+    return GestureDetector(
+      onTap: () {},
+      child: Card(
+        margin: const EdgeInsets.symmetric(
+          vertical: 8,
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            AlbumCoverImage(coverAlbum: coverAlbum),
+            SongInformation(
+              title: song.title,
+              duration: song.duration,
+              genres: song.genres,
+            ),
+          ],
+        ),
       ),
     );
   }

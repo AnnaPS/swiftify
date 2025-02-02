@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:swiftify/album/album.dart';
 import 'package:swiftify/app/app_router/router.dart';
 import 'package:swiftify/favorites/favorites.dart';
-import 'package:swiftify/song/song.dart';
+import 'package:swiftify/songs/songs.dart';
 import 'package:swiftify/theme/theme.dart';
 
 part 'routes.g.dart';
@@ -16,8 +16,13 @@ final rootNavigatorKey = GlobalKey<NavigatorState>();
     TypedGoRoute<AlbumPageRoute>(
       path: AlbumPageRoute.path,
       routes: [
-        TypedGoRoute<SongPageRoute>(
-          path: SongPageRoute.path,
+        TypedGoRoute<SongsPageRoute>(
+          path: SongsPageRoute.path,
+          routes: [
+            TypedGoRoute<SongDetailPageRoute>(
+              path: SongDetailPageRoute.path,
+            )
+          ],
         ),
       ],
     ),
@@ -29,6 +34,7 @@ final rootNavigatorKey = GlobalKey<NavigatorState>();
     ),
   ],
 )
+@immutable
 class AppShellRoute extends ShellRouteData {
   const AppShellRoute();
 
@@ -98,15 +104,38 @@ class AlbumPageRoute extends GoRouteData {
 }
 
 @immutable
-class SongPageRoute extends GoRouteData {
-  const SongPageRoute({
+class SongDetailPageRoute extends GoRouteData {
+  const SongDetailPageRoute({
+    required this.id,
+    this.coverAlbum,
+  });
+
+  final int id;
+  final String? coverAlbum;
+
+  static const path = 'song/:id';
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return CustomTransitionPage(
+      child: Container(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return FadeTransition(opacity: animation, child: child);
+      },
+    );
+  }
+}
+
+@immutable
+class SongsPageRoute extends GoRouteData {
+  const SongsPageRoute({
     required this.id,
     this.albumTitle,
     this.coverAlbum,
     this.albumReleaseDate,
   });
 
-  /// The id of the album to show
+  /// The album id to display the songs for.
   /// This is passed in the path as a parameter
   final int id;
 
@@ -135,7 +164,7 @@ class SongPageRoute extends GoRouteData {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return CustomTransitionPage(
-      child: SongPage(
+      child: SongsPage(
         albumId: id,
         albumTitle: albumTitle,
         coverAlbum: coverAlbum,

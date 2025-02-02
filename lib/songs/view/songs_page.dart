@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:swiftify/song/song.dart';
+import 'package:swiftify/songs/songs.dart';
 import 'package:swiftify_repository/swiftify_repository.dart';
 
-class SongPage extends StatelessWidget {
-  const SongPage({
+class SongsPage extends StatelessWidget {
+  const SongsPage({
     required this.albumId,
     this.albumTitle,
     this.coverAlbum,
@@ -27,9 +27,9 @@ class SongPage extends StatelessWidget {
         ),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(albumTitle ?? ''),
+          title: Text('Songs'),
         ),
-        body: SongView(
+        body: SongsView(
           albumTitle: albumTitle ?? '',
           coverAlbum: coverAlbum,
           releaseDate: albumReleaseDate ?? '',

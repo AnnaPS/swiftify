@@ -2,14 +2,14 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:swiftify_repository/swiftify_repository.dart';
 
-part 'song_event.dart';
-part 'song_state.dart';
+part 'songs_event.dart';
+part 'songs_state.dart';
 
-class SongBloc extends Bloc<SongEvent, SongState> {
+class SongBloc extends Bloc<SongEvent, SongsState> {
   SongBloc({
     required SwiftifyRepository swiftifyRepository,
   })  : _swiftifyRepository = swiftifyRepository,
-        super(const SongState()) {
+        super(const SongsState()) {
     on<SongsRequested>(_onSongsByAlbumRequested);
   }
 
@@ -17,9 +17,9 @@ class SongBloc extends Bloc<SongEvent, SongState> {
 
   Future<void> _onSongsByAlbumRequested(
     SongsRequested event,
-    Emitter<SongState> emit,
+    Emitter<SongsState> emit,
   ) async {
-    emit(state.copyWith(status: SongStatus.loading));
+    emit(state.copyWith(status: SongsStatus.loading));
     try {
       final songs = await _swiftifyRepository.getSongsByAlbum(
         albumId: event.albumId,
@@ -27,12 +27,12 @@ class SongBloc extends Bloc<SongEvent, SongState> {
       emit(
         state.copyWith(
           songs: songs,
-          status: SongStatus.success,
+          status: SongsStatus.success,
         ),
       );
     } catch (error, stackTrace) {
       addError(error, stackTrace);
-      emit(state.copyWith(status: SongStatus.failure));
+      emit(state.copyWith(status: SongsStatus.failure));
     }
   }
 }

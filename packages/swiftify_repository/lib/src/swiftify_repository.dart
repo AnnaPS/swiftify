@@ -44,7 +44,7 @@ class SwiftifyRepository {
     }
   }
 
-  /// Get lyrics for a song from the API.
+  /// Get lyrics by [songId] from the API.
   Future<String> getSongLyrics({
     required int songId,
   }) async {

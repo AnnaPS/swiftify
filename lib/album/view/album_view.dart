@@ -81,7 +81,7 @@ class AlbumsContent extends StatelessWidget {
       itemBuilder: (context, index) {
         final album = albums[index];
         return GestureDetector(
-          onTap: () => SongPageRoute(
+          onTap: () => SongsPageRoute(
             id: album.albumId,
             albumTitle: album.title,
             coverAlbum: album.coverAlbum,

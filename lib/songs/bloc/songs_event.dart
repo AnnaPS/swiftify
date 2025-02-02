@@ -1,4 +1,4 @@
-part of 'song_bloc.dart';
+part of 'songs_bloc.dart';
 
 sealed class SongEvent extends Equatable {
   const SongEvent();

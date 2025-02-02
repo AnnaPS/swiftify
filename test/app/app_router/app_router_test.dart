@@ -8,7 +8,7 @@ import 'package:swiftify/album/album.dart';
 import 'package:swiftify/app/app_router/app_router.dart';
 import 'package:swiftify/app/app_router/routes/routes.dart';
 import 'package:swiftify/favorites/favorites.dart';
-import 'package:swiftify/song/song.dart';
+import 'package:swiftify/songs/songs.dart';
 import 'package:swiftify/theme/theme.dart';
 
 import '../../helpers/helpers.dart';
@@ -103,7 +103,7 @@ void main() {
 
         appRouter.routes.go('/songs/1');
         await tester.pumpAndSettle();
-        expect(find.byType(SongPage), findsOneWidget);
+        expect(find.byType(SongsPage), findsOneWidget);
       });
 
       group('navigates with BottomNavigationBar', () {
