@@ -8,6 +8,8 @@ part of 'routes.dart';
 
 List<RouteBase> get $appRoutes => [
       $appShellRoute,
+      $themePageRoute,
+      $albumPageRoute,
     ];
 
 RouteBase get $appShellRoute => ShellRouteData.$route(
@@ -17,27 +19,11 @@ RouteBase get $appShellRoute => ShellRouteData.$route(
         GoRouteData.$route(
           path: '/',
           factory: $AlbumPageRouteExtension._fromState,
-          routes: [
-            GoRouteData.$route(
-              path: 'songs/:id',
-              parentNavigatorKey: SongsPageRoute.$parentNavigatorKey,
-              factory: $SongsPageRouteExtension._fromState,
-              routes: [
-                GoRouteData.$route(
-                  path: 'song/:id',
-                  factory: $SongDetailPageRouteExtension._fromState,
-                ),
-              ],
-            ),
-          ],
         ),
         GoRouteData.$route(
           path: '/favorites',
+          name: 'favorites',
           factory: $FavoritesPageRouteExtension._fromState,
-        ),
-        GoRouteData.$route(
-          path: '/theme',
-          factory: $ThemePageRouteExtension._fromState,
         ),
       ],
     );
@@ -52,57 +38,6 @@ extension $AlbumPageRouteExtension on AlbumPageRoute {
 
   String get location => GoRouteData.$location(
         '/',
-      );
-
-  void go(BuildContext context) => context.go(location);
-
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
-
-  void replace(BuildContext context) => context.replace(location);
-}
-
-extension $SongsPageRouteExtension on SongsPageRoute {
-  static SongsPageRoute _fromState(GoRouterState state) => SongsPageRoute(
-        id: int.parse(state.pathParameters['id']!),
-        albumTitle: state.uri.queryParameters['album-title'],
-        coverAlbum: state.uri.queryParameters['cover-album'],
-        albumReleaseDate: state.uri.queryParameters['album-release-date'],
-      );
-
-  String get location => GoRouteData.$location(
-        '/songs/${Uri.encodeComponent(id.toString())}',
-        queryParams: {
-          if (albumTitle != null) 'album-title': albumTitle,
-          if (coverAlbum != null) 'cover-album': coverAlbum,
-          if (albumReleaseDate != null) 'album-release-date': albumReleaseDate,
-        },
-      );
-
-  void go(BuildContext context) => context.go(location);
-
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
-
-  void replace(BuildContext context) => context.replace(location);
-}
-
-extension $SongDetailPageRouteExtension on SongDetailPageRoute {
-  static SongDetailPageRoute _fromState(GoRouterState state) =>
-      SongDetailPageRoute(
-        id: int.parse(state.pathParameters['id']!),
-        coverAlbum: state.uri.queryParameters['cover-album'],
-      );
-
-  String get location => GoRouteData.$location(
-        '/songs/${Uri.encodeComponent(id.toString())}/song/${Uri.encodeComponent(id.toString())}',
-        queryParams: {
-          if (coverAlbum != null) 'cover-album': coverAlbum,
-        },
       );
 
   void go(BuildContext context) => context.go(location);
@@ -133,12 +68,90 @@ extension $FavoritesPageRouteExtension on FavoritesPageRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
+RouteBase get $themePageRoute => GoRouteData.$route(
+      path: '/theme',
+      name: 'theme',
+      factory: $ThemePageRouteExtension._fromState,
+    );
+
 extension $ThemePageRouteExtension on ThemePageRoute {
   static ThemePageRoute _fromState(GoRouterState state) =>
       const ThemePageRoute();
 
   String get location => GoRouteData.$location(
         '/theme',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $albumPageRoute => GoRouteData.$route(
+      path: '/',
+      factory: $AlbumPageRouteExtension._fromState,
+      routes: [
+        GoRouteData.$route(
+          path: 'songs/:albumId',
+          name: 'songs',
+          factory: $SongsPageRouteExtension._fromState,
+        ),
+        GoRouteData.$route(
+          path: '/song-detail/:songId',
+          name: 'song-detail',
+          factory: $SongDetailPageRouteExtension._fromState,
+        ),
+      ],
+    );
+
+extension $SongsPageRouteExtension on SongsPageRoute {
+  static SongsPageRoute _fromState(GoRouterState state) => SongsPageRoute(
+        albumId: int.parse(state.pathParameters['albumId']!),
+        albumTitle: state.uri.queryParameters['album-title'],
+        coverAlbum: state.uri.queryParameters['cover-album'],
+        albumReleaseDate: state.uri.queryParameters['album-release-date'],
+      );
+
+  String get location => GoRouteData.$location(
+        '/songs/${Uri.encodeComponent(albumId.toString())}',
+        queryParams: {
+          if (albumTitle != null) 'album-title': albumTitle,
+          if (coverAlbum != null) 'cover-album': coverAlbum,
+          if (albumReleaseDate != null) 'album-release-date': albumReleaseDate,
+        },
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $SongDetailPageRouteExtension on SongDetailPageRoute {
+  static SongDetailPageRoute _fromState(GoRouterState state) =>
+      SongDetailPageRoute(
+        songId: int.parse(state.pathParameters['songId']!),
+        songTitle: state.uri.queryParameters['song-title'],
+        lyrics: state.uri.queryParameters['lyrics'],
+        coverAlbum: state.uri.queryParameters['cover-album'],
+      );
+
+  String get location => GoRouteData.$location(
+        '/song-detail/${Uri.encodeComponent(songId.toString())}',
+        queryParams: {
+          if (songTitle != null) 'song-title': songTitle,
+          if (lyrics != null) 'lyrics': lyrics,
+          if (coverAlbum != null) 'cover-album': coverAlbum,
+        },
       );
 
   void go(BuildContext context) => context.go(location);

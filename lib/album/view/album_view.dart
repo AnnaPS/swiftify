@@ -11,22 +11,26 @@ class AlbumView extends StatelessWidget {
     final isLoading = context.select((AlbumBloc bloc) => bloc.state.isLoading);
     final isSuccess = context.select((AlbumBloc bloc) => bloc.state.isSuccess);
 
-    return isLoading
-        ? const Center(
-            child: CircularProgressIndicator(),
-          )
-        : isSuccess
-            ? const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  AlbumsHeader(),
-                  Expanded(
-                    child: AlbumsContent(),
-                  ),
-                ],
-              )
-            : const Text('Failed to fetch albums');
+    if (isLoading) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    } else {
+      if (isSuccess) {
+        return const Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            AlbumsHeader(),
+            Expanded(
+              child: AlbumsContent(),
+            ),
+          ],
+        );
+      } else {
+        return const Text('Failed to fetch albums');
+      }
+    }
   }
 }
 
@@ -82,11 +86,11 @@ class AlbumsContent extends StatelessWidget {
         final album = albums[index];
         return GestureDetector(
           onTap: () => SongsPageRoute(
-            id: album.albumId,
+            albumId: album.albumId,
             albumTitle: album.title,
             coverAlbum: album.coverAlbum,
             albumReleaseDate: album.releaseDate,
-          ).go(context),
+          ).push<void>(context),
           child: AlbumItem(
             title: album.title,
             releaseDate: album.releaseDate,

@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:swiftify/album/album.dart';
 import 'package:swiftify/app/app_router/router.dart';
 import 'package:swiftify/favorites/favorites.dart';
+import 'package:swiftify/song_detail/song_detail.dart';
 import 'package:swiftify/songs/songs.dart';
 import 'package:swiftify/theme/theme.dart';
 
@@ -15,26 +16,13 @@ final rootNavigatorKey = GlobalKey<NavigatorState>();
   routes: <TypedRoute<RouteData>>[
     TypedGoRoute<AlbumPageRoute>(
       path: AlbumPageRoute.path,
-      routes: [
-        TypedGoRoute<SongsPageRoute>(
-          path: SongsPageRoute.path,
-          routes: [
-            TypedGoRoute<SongDetailPageRoute>(
-              path: SongDetailPageRoute.path,
-            )
-          ],
-        ),
-      ],
     ),
     TypedGoRoute<FavoritesPageRoute>(
       path: FavoritesPageRoute.path,
-    ),
-    TypedGoRoute<ThemePageRoute>(
-      path: ThemePageRoute.path,
+      name: FavoritesPageRoute.name,
     ),
   ],
 )
-@immutable
 class AppShellRoute extends ShellRouteData {
   const AppShellRoute();
 
@@ -56,11 +44,15 @@ class AppShellRoute extends ShellRouteData {
   }
 }
 
-@immutable
+@TypedGoRoute<ThemePageRoute>(
+  path: ThemePageRoute.path,
+  name: ThemePageRoute.name,
+)
 class ThemePageRoute extends GoRouteData {
   const ThemePageRoute();
 
   static const path = '/theme';
+  static const name = 'theme';
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
@@ -70,11 +62,11 @@ class ThemePageRoute extends GoRouteData {
   }
 }
 
-@immutable
 class FavoritesPageRoute extends GoRouteData {
   const FavoritesPageRoute();
 
   static const path = '/favorites';
+  static const name = 'favorites';
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
@@ -87,7 +79,19 @@ class FavoritesPageRoute extends GoRouteData {
   }
 }
 
-@immutable
+@TypedGoRoute<AlbumPageRoute>(
+  path: AlbumPageRoute.path,
+  routes: [
+    TypedGoRoute<SongsPageRoute>(
+      path: SongsPageRoute.path,
+      name: SongsPageRoute.name,
+    ),
+    TypedGoRoute<SongDetailPageRoute>(
+      path: SongDetailPageRoute.path,
+      name: SongDetailPageRoute.name,
+    ),
+  ],
+)
 class AlbumPageRoute extends GoRouteData {
   const AlbumPageRoute();
   static const path = '/';
@@ -103,33 +107,9 @@ class AlbumPageRoute extends GoRouteData {
   }
 }
 
-@immutable
-class SongDetailPageRoute extends GoRouteData {
-  const SongDetailPageRoute({
-    required this.id,
-    this.coverAlbum,
-  });
-
-  final int id;
-  final String? coverAlbum;
-
-  static const path = 'song/:id';
-
-  @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return CustomTransitionPage(
-      child: Container(),
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        return FadeTransition(opacity: animation, child: child);
-      },
-    );
-  }
-}
-
-@immutable
 class SongsPageRoute extends GoRouteData {
   const SongsPageRoute({
-    required this.id,
+    required this.albumId,
     this.albumTitle,
     this.coverAlbum,
     this.albumReleaseDate,
@@ -137,7 +117,7 @@ class SongsPageRoute extends GoRouteData {
 
   /// The album id to display the songs for.
   /// This is passed in the path as a parameter
-  final int id;
+  final int albumId;
 
   /// The title of the album
   /// This is passed in as a query parameter.
@@ -154,19 +134,49 @@ class SongsPageRoute extends GoRouteData {
   /// It is optional and can be null.
   final String? albumReleaseDate;
 
-  static const path = 'songs/:id';
-
-  /// The parent navigator key.
-  /// This is used to push the page on the parent navigator
-  /// when the page is a nested route
-  static final GlobalKey<NavigatorState> $parentNavigatorKey = rootNavigatorKey;
+  static const path = 'songs/:albumId';
+  static const name = 'songs';
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return CustomTransitionPage(
+      key: state.pageKey,
       child: SongsPage(
-        albumId: id,
+        albumId: albumId,
         albumTitle: albumTitle,
+        coverAlbum: coverAlbum,
+      ),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return FadeTransition(opacity: animation, child: child);
+      },
+    );
+  }
+}
+
+class SongDetailPageRoute extends GoRouteData {
+  const SongDetailPageRoute({
+    required this.songId,
+    this.songTitle,
+    this.lyrics,
+    this.coverAlbum,
+  });
+
+  final int songId;
+  final String? lyrics;
+  final String? songTitle;
+  final String? coverAlbum;
+
+  static const path = '/song-detail/:songId';
+  static const name = 'song-detail';
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return CustomTransitionPage(
+      key: state.pageKey,
+      child: SongDetailPage(
+        songId: songId,
+        songTitle: songTitle ?? '',
+        lyrics: lyrics ?? '',
         coverAlbum: coverAlbum,
       ),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {

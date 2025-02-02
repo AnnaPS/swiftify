@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swiftify/app/app_router/router.dart';
 import 'package:swiftify/songs/songs.dart';
 import 'package:swiftify_repository/swiftify_repository.dart';
 
@@ -74,7 +75,12 @@ class SongCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () => SongDetailPageRoute(
+        songId: song.songId,
+        songTitle: song.title,
+        lyrics: song.lyrics ?? '',
+        coverAlbum: coverAlbum,
+      ).push<void>(context),
       child: Card(
         margin: const EdgeInsets.symmetric(
           vertical: 8,
@@ -106,19 +112,21 @@ class AlbumCoverImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Container(
-        constraints: const BoxConstraints(
-          maxWidth: 80,
-        ),
-        clipBehavior: Clip.hardEdge,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Image.network(
-          coverAlbum!,
-          fit: BoxFit.cover,
-        ),
-      ),
+      child: coverAlbum != null
+          ? Container(
+              constraints: const BoxConstraints(
+                maxWidth: 80,
+              ),
+              clipBehavior: Clip.hardEdge,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Image.network(
+                coverAlbum!,
+                fit: BoxFit.cover,
+              ),
+            )
+          : const SizedBox(),
     );
   }
 }

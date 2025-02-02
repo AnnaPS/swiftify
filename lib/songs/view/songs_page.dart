@@ -27,7 +27,7 @@ class SongsPage extends StatelessWidget {
         ),
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Songs'),
+          title: const Text('Songs'),
         ),
         body: SongsView(
           albumTitle: albumTitle ?? '',
